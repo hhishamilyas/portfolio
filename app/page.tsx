@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { ArrowDownRight, ArrowRight, ArrowUpRight, Asterisk, Menu, X, Plus, MoveUpRight } from 'lucide-react';
+import { ArrowDownRight, ArrowUpRight, Menu, X, Plus, MoveUpRight } from 'lucide-react';
 
 const projects = [
   { n: '01', name: 'DTRICHO', description: 'A performance-led patient acquisition ecosystem.', type: 'Healthcare · Growth Strategy', theme: 'hair', label: 'GROWTH / 2025', monogram: 'D', number: '01' },
@@ -45,25 +45,26 @@ export default function Home() {
 
       <main>
         <section className="hero wrap" aria-labelledby="hero-heading">
-          <div className="hero-topline"><div className="availability"><span className="status-dot"/> OPEN TO MARKETING LEADERSHIP ROLES</div><span className="edition">MARKETING STRATEGY · CREATIVE LEADERSHIP</span></div>
           <div className="hero-main">
             <div className="hero-left">
-              <p className="eyebrow">MARKETING STRATEGIST <span>✳</span> CREATIVE LEADER</p>
-              <h1 id="hero-heading">Ideas into<br/><em>impact<span className="hero-period">.</span></em></h1>
-              <div className="hero-bottom"><p>I’m <strong>Hisham Ilyas.</strong> I bring brand strategy, creative direction, performance marketing and marketing operations together to help businesses grow.</p><a href="#work" className="round-arrow" aria-label="View my work" title="View my work"><ArrowDownRight size={34} strokeWidth={1.5}/></a></div>
+              <p className="eyebrow">Marketing Strategist &amp; Creative Leader</p>
+              <h1 id="hero-heading">Hisham<br/><em>Ilyas<span className="hero-period">.</span></em></h1>
+              <p className="hero-description">I bring brand strategy, creative direction and performance marketing together to help businesses grow.</p>
+              <div className="hero-actions">
+                <a className="hero-primary" href="#work">View selected work <ArrowDownRight size={19} aria-hidden="true" /></a>
+                <a className="hero-secondary" href="#contact">Get in touch <ArrowUpRight size={17} aria-hidden="true" /></a>
+              </div>
+              <p className="availability"><span className="status-dot" /> Open to marketing leadership roles in Qatar and the GCC</p>
             </div>
             <div className="hero-art" aria-label="Abstract creative composition representing strategy and growth" role="img">
               <div className="art-grid"/><div className="art-corner top-left">H / 26</div><div className="art-orbit orbit-one"/><div className="art-orbit orbit-two"/><div className="art-sphere"><div className="sphere-shine"/></div><div className="art-cross">✳</div><div className="art-stamp">THINK<br/>MAKE<br/>GROW<span>↗</span></div><div className="art-corner bottom-right">STRATEGY IN MOTION — 001</div>
             </div>
           </div>
-          <div className="hero-foot"><span>SCROLL TO EXPLORE <ArrowRight size={14}/></span><span>BASED IN INDIA · WORKING ACROSS MARKETS</span><span>01 / 04</span></div>
         </section>
-
-        <section className="marquee" aria-label="Focus areas"><div className="marquee-track">{Array.from({length: 4}).map((_, i) => <span key={i}>BRANDS <Asterisk/> CAMPAIGNS <Asterisk/> EXPERIENCES <Asterisk/> GROWTH <Asterisk/></span>)}</div></section>
 
         <section className="intro wrap" id="about"><div className="section-index"><span className="index-dot"/> 01 / WHO I AM</div><div className="intro-body"><h2>I connect the <span className="soft">big picture</span> with the <span className="underline-accent">small details.</span></h2><div className="intro-bottom"><p>My work began with hands-on creative execution and grew into marketing strategy and leadership. Today I connect positioning and campaign direction with the practical work of launching, measuring and improving them. My portfolio spans healthcare, fitness and brand development.</p><a href="#expertise" className="text-link">MORE ABOUT MY APPROACH <ArrowUpRight size={19}/></a></div></div></section>
 
-        <section className="work-section wrap" id="work"><div className="section-heading"><div><div className="section-index"><span className="index-dot"/> 02 / THE WORK</div><h2>Selected <em>work.</em></h2></div><p>Projects across brand strategy, creative direction<br/>and customer acquisition.</p></div><div className="projects">{projects.map((project) => <article className="project" key={project.n}><div className={`project-visual ${project.theme}`}><span className="project-visual-top">{project.label}</span><div className="project-graphic"><span className="project-mono">{project.monogram}</span><span className="project-shape"/></div><span className="project-visual-bottom">MH — SELECTED WORK <span>{project.number} / {String(projects.length).padStart(2, '0')}</span></span></div><div className="project-info"><div><span className="project-category">{project.type}</span><h3>{project.name}</h3><p>{project.description}</p></div>{project.href ? <Link className="project-icon" href={project.href} aria-label={`Read the ${project.name} case study`}><ArrowUpRight size={23} aria-hidden="true" /></Link> : <span className="project-icon" aria-hidden="true"><ArrowUpRight size={23}/></span>}</div></article>)}</div><p className="project-note">Project artwork is illustrative.</p></section>
+        <section className="work-section wrap" id="work"><div className="section-heading"><div><div className="section-index"><span className="index-dot"/> 02 / PORTFOLIO</div><h2>Selected <em>work.</em></h2></div><p>Projects across brand strategy, creative direction, customer acquisition and operations.</p></div><div className="projects">{projects.map((project) => <article className="project" key={project.n}><div className={`project-visual ${project.theme}`}><span className="project-visual-top">{project.label}</span><div className="project-graphic"><span className="project-mono">{project.monogram}</span><span className="project-shape"/></div><span className="project-visual-bottom">MH — SELECTED WORK <span>{project.number} / {String(projects.length).padStart(2, '0')}</span></span></div><div className="project-info"><div><span className="project-category">{project.type}</span><h3>{project.href ? <Link href={project.href} className="project-link">{project.name}</Link> : project.name}</h3><p>{project.description}</p></div>{project.href && <span className="project-icon" aria-hidden="true"><ArrowUpRight size={23}/></span>}</div></article>)}</div><p className="project-note">Project artwork is illustrative.</p></section>
 
         <section className="expertise-section" id="expertise"><div className="wrap expertise-inner"><div className="expertise-head"><div className="section-index light-index"><span className="index-dot"/> 03 / WHAT I DO</div><h2>My toolkit is <em>connected.</em></h2><p>I work across five disciplines, from defining the brief to reviewing what the work achieved.</p></div><div className="service-list">{services.map((service, i) => <div className={`service-row ${openService === i ? 'service-active' : ''}`} key={service.num}><button aria-expanded={openService === i} onClick={() => setOpenService(openService === i ? null : i)}><span className="service-num">{service.num}</span><span className="service-title">{service.name}</span><span className="service-toggle">{openService === i ? <X size={20}/> : <Plus size={20}/>}</span></button>{openService === i && <p className="service-desc">{service.desc}</p>}</div>)}</div></div></section>
 
