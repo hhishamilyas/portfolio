@@ -1,0 +1,50 @@
+.charts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin-block: 26px;
+}
+
+.chart {
+  min-width: 0;
+  margin: 0;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #eeede7;
+}
+
+.chart figcaption, .summaryTable caption {
+  font-family: Manrope, sans-serif;
+  font-weight: 800;
+  letter-spacing: -.02em;
+}
+
+.chart dl { display: grid; gap: 10px; margin-block: 14px; }
+.barRow, .barRow dd { display: grid; align-items: center; gap: 8px; }
+.barRow { grid-template-columns: 3.25rem minmax(0, 1fr); font-size: .84rem; }
+.barRow dd { grid-template-columns: minmax(0, 1fr) 2.4rem; margin: 0; }
+.track { display: block; height: 10px; border-radius: 20px; background: #dfddd4; }
+.before, .after { display: block; height: 100%; border-radius: inherit; }
+.before { background: #696962; }
+.after { background: var(--case-accent); }
+.chart p { margin: 0; color: var(--case-muted); font-size: .78rem; line-height: 1.45; }
+
+.summaryTable { width: 100%; border-collapse: collapse; table-layout: fixed; margin-block: 26px; font-size: .9rem; }
+.summaryTable caption { padding-bottom: 10px; text-align: left; font-size: 1.12rem; }
+.summaryTable :is(th, td) {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+  overflow-wrap: anywhere;
+}
+.summaryTable thead th { background: #e9e7df; }
+.summaryTable tbody th { line-height: 1.45; }
+.summaryTable td { color: var(--case-muted); line-height: 1.45; }
+
+@media (max-width: 575px) {
+  .charts { grid-template-columns: minmax(0, 1fr); }
+  .summaryTable { font-size: .8rem; }
+  .summaryTable :is(th, td) { padding: 8px 6px; }
+}

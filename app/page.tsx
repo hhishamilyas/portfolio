@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import { ArrowDownRight, ArrowUpRight, Menu, X, Plus, MoveUpRight } from 'lucide-react';
 
 const projects = [
-  { n: '01', name: 'DTRICHO', description: 'A performance-led patient acquisition ecosystem.', type: 'Healthcare · Growth Strategy', theme: 'hair', label: 'GROWTH / 2025', cover: '/images/work/dtricho.webp', number: '01' },
+  { n: '01', name: 'DTRICHO', description: 'A performance-led patient acquisition ecosystem.', type: 'Healthcare · Growth Strategy', theme: 'hair', label: 'GROWTH / 2025', cover: '/images/work/dtricho.webp', number: '01', href: '/work/dtricho-healthcare-growth' },
   { n: '02', name: 'RAC GLOBAL', description: 'Building visibility through brand, content and experience.', type: 'Brand · Creative Direction', theme: 'rac', label: 'BRAND / 2026', cover: '/images/work/rac-global.webp', number: '02' },
   { n: '03', name: 'BVOLV FITNESS', description: 'A local growth strategy for an ambitious fitness brand.', type: 'Positioning · Activation', theme: 'bvolv', label: 'STRATEGY / 2026', cover: '/images/work/bvolv-fitness.webp', number: '03' },
   { n: '04', name: 'D2C PHARMA LOGISTICS', description: 'Scaling rural order fulfillment through warehouse automation and a redesigned India Post workflow.', type: 'Operations · Case Study', theme: 'hair', label: 'OPERATIONS / CASE STUDY', cover: '/images/work/pharma-logistics.webp', number: '04', href: '/work/pharmaceutical-logistics-optimization' },
