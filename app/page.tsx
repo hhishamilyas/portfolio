@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import ProjectGrid from './work/_components/ProjectGrid';
-import { ArrowDownRight, ArrowUpRight, Menu, X, Plus, MoveUpRight } from 'lucide-react';
+import { ArrowDownRight, ArrowUpRight, X, Plus, MoveUpRight } from 'lucide-react';
 
 const services = [
   { num: '01', name: 'Strategy & Leadership', desc: 'Shape positioning, go-to-market plans and integrated campaigns. Align teams and stakeholders around priorities, budgets and measures of success.' },
@@ -18,25 +18,12 @@ const linkedinUrl = process.env.NEXT_PUBLIC_LINKEDIN_URL;
 const cvUrl = process.env.NEXT_PUBLIC_CV_URL;
 
 export default function Home() {
-  const [menuOpen, setMenuOpen] = useState(false);
   const [openService, setOpenService] = useState<number | null>(0);
   const [year, setYear] = useState('');
   useEffect(() => setYear(String(new Date().getFullYear())), []);
 
   return (
-    <div className="site-shell" id="top">
-      <header className="site-header wrap">
-        <a href="#top" className="brand" aria-label="Home"><span className="brand-symbol">h<span className="brand-dot">.</span></span><span className="brand-caption">HISHAM<br/>ILYAS</span></a>
-        <nav id="main-navigation" className={menuOpen ? 'nav nav-open' : 'nav'} aria-label="Main navigation">
-          <a href="#about" onClick={() => setMenuOpen(false)}>About</a>
-          <Link href="/work" onClick={() => setMenuOpen(false)}>Work</Link>
-          <a href="#expertise" onClick={() => setMenuOpen(false)}>Expertise</a>
-          <a href="#contact" onClick={() => setMenuOpen(false)}>Contact</a>
-        </nav>
-        <a className="header-contact" href="#contact">LET'S CONNECT <ArrowUpRight size={16}/></a>
-        <button className="menu-toggle" aria-controls="main-navigation" aria-expanded={menuOpen} aria-label={menuOpen ? 'Close menu' : 'Open menu'} onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? <X size={24}/> : <Menu size={24}/>}</button>
-      </header>
-
+    <div className="site-shell">
       <main>
         <section className="hero wrap" aria-labelledby="hero-heading">
           <div className="hero-main">

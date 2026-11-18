@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import SiteHeader from './_components/SiteHeader';
 
 const title = 'Hisham Ilyas | Marketing Strategist & Creative Leader';
 const description = 'Explore Hisham Ilyas’s portfolio across brand strategy, creative direction, performance marketing and marketing operations.';
@@ -11,5 +12,5 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="en"><body>{children}</body></html>;
+  return <html lang="en"><body><SiteHeader />{children}</body></html>;
 }
