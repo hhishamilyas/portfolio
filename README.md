@@ -39,3 +39,13 @@ Set these public values in `.env.local` for local development and in your hostin
 - `NEXT_PUBLIC_CV_URL` — path to an approved PDF, such as `/hisham-ilyas-cv.pdf` for a file placed in `public/`.
 
 Keep the PDF on the same site so the browser can honor the download link.
+
+## Work pages
+
+The Work index is at `/work`. Each project has its own folder in `app/work/<slug>/`:
+
+- `page.tsx` contains the project page or full case study.
+- `project.ts` contains the card details shared by the homepage and Work index.
+- `public/images/work/<slug>/` contains the project cover and supporting images.
+
+Add new project metadata to `app/work/projects.ts` to include it in both grids.

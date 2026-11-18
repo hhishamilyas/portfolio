@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
+import { pharmaLogistics } from './project';
 import { ArrowLeft, ArrowUpRight } from 'lucide-react';
 import styles from './case-study.module.css';
 
@@ -25,7 +26,7 @@ const sections = [
 export default function PharmaLogisticsCaseStudy() {
   return (
     <main className={`wrap ${styles.page}`}>
-      <Link className={styles.back} href="/#work">
+      <Link className={styles.back} href="/work">
         <ArrowLeft size={18} aria-hidden="true" /> Selected work
       </Link>
       <article>
@@ -41,7 +42,7 @@ export default function PharmaLogisticsCaseStudy() {
         </header>
         <figure className={`${styles.figure} ${styles.heroFigure}`}>
           <Image
-            src="/images/work/pharma-logistics.webp"
+            src={pharmaLogistics.cover}
             alt="A warehouse packing bench with labeled parcels and a handheld scanner"
             width={1120}
             height={630}
@@ -69,7 +70,7 @@ export default function PharmaLogisticsCaseStudy() {
               <h2>{"Challenges"}</h2>
               <figure className={styles.figure}>
                 <Image
-                  src="/images/work/pharma-parcel-sorting.webp"
+                  src="/images/work/pharmaceutical-logistics-optimization/parcel-sorting.webp"
                   alt="Labeled parcels grouped on a sorting bench beside canvas mail sacks"
                   width={1120}
                   height={630}
@@ -113,7 +114,7 @@ export default function PharmaLogisticsCaseStudy() {
               <h2>{"Strategy & Solution"}</h2>
               <figure className={styles.figure}>
                 <Image
-                  src="/images/work/pharma-barcode-scanning.webp"
+                  src="/images/work/pharmaceutical-logistics-optimization/barcode-scanning.webp"
                   alt="Handheld scanner and a roll of barcode labels beside a labeled parcel"
                   width={1120}
                   height={630}
@@ -230,7 +231,7 @@ export default function PharmaLogisticsCaseStudy() {
         </div>
       </article>
       <footer className={styles.footer}>
-        <Link className={styles.back} href="/#work"><ArrowLeft size={18} aria-hidden="true" /> Selected work</Link>
+        <Link className={styles.back} href="/work"><ArrowLeft size={18} aria-hidden="true" /> Selected work</Link>
         <Link className={styles.back} href="/#contact">Get in touch <ArrowUpRight size={18} aria-hidden="true" /></Link>
       </footer>
     </main>

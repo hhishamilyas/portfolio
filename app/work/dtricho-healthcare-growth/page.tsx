@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
+import { dtricho } from './project';
 import { ArrowLeft, ArrowUpRight } from 'lucide-react';
 import layout from '../pharmaceutical-logistics-optimization/case-study.module.css';
 import styles from './dtricho.module.css';
@@ -69,7 +70,7 @@ function ComparisonChart({ title, before, after, max, unit, note }: {
 export default function DTrichoCaseStudy() {
   return (
     <main className={`wrap ${layout.page}`}>
-      <Link className={layout.back} href="/#work"><ArrowLeft size={18} aria-hidden="true" /> Selected work</Link>
+      <Link className={layout.back} href="/work"><ArrowLeft size={18} aria-hidden="true" /> Selected work</Link>
       <article>
         <header className={layout.header}>
           <p className="section-index"><span className="index-dot" /> DTRICHO · HEALTHCARE GROWTH</p>
@@ -83,7 +84,7 @@ export default function DTrichoCaseStudy() {
           </dl>
         </header>
         <figure className={`${layout.figure} ${layout.heroFigure}`}>
-          <Image src="/images/work/dtricho.webp" alt="A scalp imaging instrument beside a tablet" width={1120} height={630} sizes="(max-width: 760px) 90vw, (max-width: 1440px) 89vw, 1280px" priority />
+          <Image src={dtricho.cover} alt="A scalp imaging instrument beside a tablet" width={1120} height={630} sizes="(max-width: 760px) 90vw, (max-width: 1440px) 89vw, 1280px" priority />
           <figcaption>Illustrative image of a trichology consultation setup.</figcaption>
         </figure>
 
@@ -164,7 +165,7 @@ export default function DTrichoCaseStudy() {
       </article>
 
       <footer className={layout.footer}>
-        <Link className={layout.back} href="/#work"><ArrowLeft size={18} aria-hidden="true" /> Selected work</Link>
+        <Link className={layout.back} href="/work"><ArrowLeft size={18} aria-hidden="true" /> Selected work</Link>
         <Link className={layout.back} href="/#contact">Get in touch <ArrowUpRight size={18} aria-hidden="true" /></Link>
       </footer>
     </main>
