@@ -142,3 +142,57 @@
 }
 .site-shell .project-photo .project-visual-top,
 .site-shell .project-photo .project-visual-bottom { color: #fff; }
+
+@keyframes portfolio-enter {
+  from { transform: translateY(14px); }
+  to { transform: translateY(0); }
+}
+
+@keyframes portfolio-reveal {
+  from { opacity: .72; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .site-shell .hero h1 {
+    animation: portfolio-enter 540ms cubic-bezier(.2, .65, .3, 1) both;
+  }
+
+  .site-shell :is(.hero-description, .hero-actions, .hero-art) {
+    animation: portfolio-enter 640ms cubic-bezier(.2, .65, .3, 1) both;
+  }
+
+  .site-shell .hero-actions { animation-delay: 90ms; }
+  .site-shell .hero-art { animation-delay: 120ms; }
+
+  .site-shell .project-photo img,
+  .site-shell .project-icon {
+    transition: transform 320ms cubic-bezier(.2, .65, .3, 1);
+  }
+
+  .site-shell .project:has(.project-link:focus-visible) .project-icon {
+    transform: translate(2px, -2px);
+  }
+
+  .site-shell .service-active .service-desc {
+    animation: portfolio-reveal 240ms ease-out both;
+  }
+
+  @supports (animation-timeline: view()) {
+    .site-shell :is(.project, .intro-body, .expertise-head, .statement > p) {
+      animation: portfolio-reveal linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 42%;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) and (hover: hover) {
+  .site-shell .project:has(.project-link:hover) .project-photo img {
+    transform: scale(1.055);
+  }
+
+  .site-shell .project:has(.project-link:hover) .project-icon {
+    transform: translate(2px, -2px);
+  }
+}
