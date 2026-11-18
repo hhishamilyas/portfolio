@@ -84,18 +84,14 @@
 .projects { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px 22px; }
 .project { position: relative; min-width: 0; border: 1px solid var(--home-line); border-radius: 10px; }
 .cover {
-  display: grid;
-  place-items: center;
+  position: relative;
+  overflow: hidden;
   aspect-ratio: 16 / 9;
   border-radius: 9px 9px 0 0;
-  font: 800 clamp(4.5rem, 11vw, 10.5rem)/1 Manrope, sans-serif;
-  letter-spacing: -.08em;
+  background: var(--home-line);
 }
-.cover span { transform: translateX(-.04em); }
-.hair { background: #e6e9e0; color: #434e3c; }
-.rac { background: #292e2b; color: #dedfce; }
-.bvolv { background: #eee3ca; color: #704e27; }
-.pharma { background: #eee2dc; color: #783b31; }
+.cover img { object-fit: cover; }
+.work .imageCredit { margin-top: 16px; color: var(--home-muted); font-size: .78rem; }
 .projectDetails { position: relative; padding: 20px 22px 24px; }
 .project:has(.projectLink) .projectDetails { position: static; padding-right: 64px; }
 .projectDetails h3 { margin-block: 5px 8px; font-size: clamp(1.25rem, 2.6vw, 1.65rem); letter-spacing: -.05em; }

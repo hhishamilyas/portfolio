@@ -1,15 +1,16 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { ArrowDownRight, ArrowUpRight, Menu, X, Plus, Minus } from 'lucide-react';
 import styles from './home.module.css';
 
 const projects = [
-  { name: 'DTricho', description: 'A performance-led patient acquisition ecosystem.', type: 'Healthcare · Growth Strategy', theme: 'hair', monogram: 'D' },
-  { name: 'RAC Global', description: 'Building visibility through brand, content and experience.', type: 'Brand · Creative Direction', theme: 'rac', monogram: 'R' },
-  { name: 'BVOLV Fitness', description: 'A local growth strategy for an ambitious fitness brand.', type: 'Positioning · Activation', theme: 'bvolv', monogram: 'B' },
-  { name: 'D2C Pharma Logistics', description: 'Scaling rural order fulfillment through warehouse automation and a redesigned India Post workflow.', type: 'Operations · Case Study', theme: 'pharma', monogram: 'P', href: '/work/pharmaceutical-logistics-optimization' },
+  { name: 'DTricho', description: 'A performance-led patient acquisition ecosystem.', type: 'Healthcare · Growth Strategy', cover: '/images/work/dtricho.webp' },
+  { name: 'RAC Global', description: 'Building visibility through brand, content and experience.', type: 'Brand · Creative Direction', cover: '/images/work/rac-global.webp' },
+  { name: 'BVOLV Fitness', description: 'A local growth strategy for an ambitious fitness brand.', type: 'Positioning · Activation', cover: '/images/work/bvolv-fitness.webp' },
+  { name: 'D2C Pharma Logistics', description: 'Scaling rural order fulfillment through warehouse automation and a redesigned India Post workflow.', type: 'Operations · Case Study', cover: '/images/work/pharma-logistics.webp', href: '/work/pharmaceutical-logistics-optimization' },
 ];
 
 const services = [
@@ -80,8 +81,13 @@ export default function Home() {
           <div className={styles.projects}>
             {projects.map(project => (
               <article className={styles.project} key={project.name}>
-                <div className={`${styles.cover} ${styles[project.theme]}`} aria-hidden="true">
-                  <span>{project.monogram}</span>
+                <div className={styles.cover}>
+                  <Image
+                    src={project.cover}
+                    alt=""
+                    fill
+                    sizes="(max-width: 700px) calc(100vw - 40px), (max-width: 1256px) calc(50vw - 59px), 569px"
+                  />
                 </div>
                 <div className={styles.projectDetails}>
                   <p className={styles.category}>{project.type}</p>
@@ -92,6 +98,7 @@ export default function Home() {
               </article>
             ))}
           </div>
+          <p className={styles.imageCredit}>Project images are illustrative.</p>
         </section>
 
         <section className={styles.splitSection} id="about" aria-labelledby="about-heading">
