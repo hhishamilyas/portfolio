@@ -131,3 +131,14 @@
   .site-shell .site-header { gap: 12px; }
   .site-shell .header-contact { padding-inline: 9px; }
 }
+
+.site-shell .project-photo img { object-fit: cover; }
+.site-shell .project-photo::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(to bottom, #0009, transparent 24%, transparent 76%, #0009);
+}
+.site-shell .project-photo .project-visual-top,
+.site-shell .project-photo .project-visual-bottom { color: #fff; }
