@@ -15,10 +15,10 @@ export const metadata: Metadata = {
 };
 
 const sections = [
+  { id: 'results', label: 'Results & impact' },
   { id: 'overview', label: 'Client overview' },
   { id: 'challenges', label: 'Challenges' },
   { id: 'strategy', label: 'Strategy & execution' },
-  { id: 'results', label: 'Results & impact' },
   { id: 'takeaways', label: 'Key takeaways' },
 ];
 
@@ -47,6 +47,7 @@ function ComparisonChart({ title, before, after, max, unit, note }: {
   return (
     <figure className={styles.chart}>
       <figcaption>{title}</figcaption>
+      <p className={styles.comparison} aria-hidden="true">{before}{unit} <span>→</span> {after}{unit}</p>
       <dl>
         {[{ label: 'Before', value: before }, { label: 'After', value: after }].map(({ label, value }) => (
           <div className={styles.barRow} key={label}>
@@ -74,10 +75,11 @@ export default function DTrichoCaseStudy() {
           <p className="section-index"><span className="index-dot" /> DTRICHO · HEALTHCARE GROWTH</p>
           <h1>{title}</h1>
           <p className={layout.deck}>As CMO, I restructured DTricho’s Meta Ads and clinic acquisition funnel. Within six weeks, cost per lead fell by 40% and the lead-to-consultation rate rose from 20% to 32%.</p>
-          <dl className={layout.metrics}>
-            <div><dt>Cost per lead in six weeks</dt><dd>−40%</dd></div>
-            <div><dt>Lead-to-consultation rate</dt><dd>32%</dd></div>
-            <div><dt>Retargeting ROI uplift</dt><dd>+50%</dd></div>
+          <dl className={styles.scorecard}>
+            <div><dt>Cost per lead</dt><dd>−40%</dd><dd className={styles.metricDetail}>Over six weeks</dd></div>
+            <div><dt>Lead-to-consultation rate</dt><dd>32%</dd><dd className={styles.metricDetail}>Up from 20%</dd></div>
+            <div><dt>WhatsApp opt-in rate</dt><dd>+35%</dd><dd className={styles.metricDetail}>Relative increase</dd></div>
+            <div><dt>Retargeting ROI</dt><dd>+50%</dd><dd className={styles.metricDetail}>Relative increase</dd></div>
           </dl>
         </header>
         <figure className={`${layout.figure} ${layout.heroFigure}`}>
@@ -92,6 +94,20 @@ export default function DTrichoCaseStudy() {
           </nav>
 
           <div className={layout.prose}>
+            <section id="results">
+              <h2>Results &amp; impact</h2>
+              <p>The new setup improved campaign return on ad spend and raised the share of leads that reached consultation, supporting clinic revenue. It also became a repeatable framework for both clinic branches.</p>
+              <div className={styles.charts}>
+                <ComparisonChart title="Cost per lead" before={100} after={60} max={100} unit="" note="Index, 0–100. Baseline set to 100. Actual cost amounts were not provided." />
+                <ComparisonChart title="Lead-to-consultation rate" before={20} after={32} max={40} unit="%" note="Share of leads reaching consultation. Chart scale 0–40%." />
+              </div>
+              <table className={styles.summaryTable}>
+                <caption>Reported campaign outcomes</caption>
+                <thead><tr><th scope="col">Metric</th><th scope="col">Comparison</th><th scope="col">Change</th></tr></thead>
+                <tbody>{results.map(({ metric, comparison, change }) => <tr key={metric}><th scope="row">{metric}</th><td>{comparison}</td><td className={styles.change}>{change}</td></tr>)}</tbody>
+              </table>
+            </section>
+
             <section id="overview">
               <h2>Client overview</h2>
               <p>DTricho used digital advertising to build awareness and bring prospective patients into its clinics. Meta Ads on Facebook and Instagram were its primary acquisition channel, but rising cost per lead (CPL) and low lead-to-consultation conversion were threatening profitability.</p>
@@ -119,24 +135,17 @@ export default function DTrichoCaseStudy() {
               <p>Built retargeting audiences from video views, form interactions, and website visits. Used time-sensitive messaging such as limited appointment slots and ran engagement campaigns before conversion campaigns.</p>
               <h3>Zoho CRM integration</h3>
               <p>Connected Meta Ads to Zoho CRM to track each lead’s source and lifecycle stage. Used lead quality and treatment uptake to refine audience exclusions and budget allocation.</p>
+              <ol className={styles.journey} aria-label="Clinic acquisition funnel">
+                <li>Meta Ads</li>
+                <li>Landing page</li>
+                <li>Form or WhatsApp</li>
+                <li>Zoho CRM follow-up</li>
+                <li>Clinic consultation</li>
+              </ol>
               <table className={styles.summaryTable}>
                 <caption>How the acquisition funnel was set up</caption>
                 <thead><tr><th scope="col">Stage</th><th scope="col">What changed</th></tr></thead>
                 <tbody>{stages.map(({ stage, execution }) => <tr key={stage}><th scope="row">{stage}</th><td>{execution}</td></tr>)}</tbody>
-              </table>
-            </section>
-
-            <section id="results">
-              <h2>Results &amp; impact</h2>
-              <p>The new setup improved campaign return on ad spend and raised the share of leads that reached consultation, supporting clinic revenue. It also became a repeatable framework for both clinic branches.</p>
-              <div className={styles.charts}>
-                <ComparisonChart title="Cost per lead" before={100} after={60} max={100} unit="" note="Index, 0–100. Baseline set to 100. Actual cost amounts were not provided." />
-                <ComparisonChart title="Lead-to-consultation rate" before={20} after={32} max={40} unit="%" note="Share of leads reaching consultation. Chart scale 0–40%." />
-              </div>
-              <table className={styles.summaryTable}>
-                <caption>Reported campaign outcomes</caption>
-                <thead><tr><th scope="col">Metric</th><th scope="col">Comparison</th><th scope="col">Change</th></tr></thead>
-                <tbody>{results.map(({ metric, comparison, change }) => <tr key={metric}><th scope="row">{metric}</th><td>{comparison}</td><td>{change}</td></tr>)}</tbody>
               </table>
             </section>
 
