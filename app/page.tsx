@@ -1,16 +1,9 @@
 'use client';
 
-import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
+import ProjectGrid from './work/_components/ProjectGrid';
 import { ArrowDownRight, ArrowUpRight, Menu, X, Plus, MoveUpRight } from 'lucide-react';
-
-const projects = [
-  { n: '01', name: 'DTRICHO', description: 'A performance-led patient acquisition ecosystem.', type: 'Healthcare · Growth Strategy', theme: 'hair', label: 'GROWTH / 2025', cover: '/images/work/dtricho.webp', number: '01', href: '/work/dtricho-healthcare-growth' },
-  { n: '02', name: 'RAC GLOBAL', description: 'Building visibility through brand, content and experience.', type: 'Brand · Creative Direction', theme: 'rac', label: 'BRAND / 2026', cover: '/images/work/rac-global.webp', number: '02' },
-  { n: '03', name: 'BVOLV FITNESS', description: 'A local growth strategy for an ambitious fitness brand.', type: 'Positioning · Activation', theme: 'bvolv', label: 'STRATEGY / 2026', cover: '/images/work/bvolv-fitness.webp', number: '03' },
-  { n: '04', name: 'D2C PHARMA LOGISTICS', description: 'Scaling rural order fulfillment through warehouse automation and a redesigned India Post workflow.', type: 'Operations · Case Study', theme: 'hair', label: 'OPERATIONS / CASE STUDY', cover: '/images/work/pharma-logistics.webp', number: '04', href: '/work/pharmaceutical-logistics-optimization' },
-];
 
 const services = [
   { num: '01', name: 'Strategy & Leadership', desc: 'Shape positioning, go-to-market plans and integrated campaigns. Align teams and stakeholders around priorities, budgets and measures of success.' },
@@ -36,7 +29,7 @@ export default function Home() {
         <a href="#top" className="brand" aria-label="Home"><span className="brand-symbol">h<span className="brand-dot">.</span></span><span className="brand-caption">HISHAM<br/>ILYAS</span></a>
         <nav id="main-navigation" className={menuOpen ? 'nav nav-open' : 'nav'} aria-label="Main navigation">
           <a href="#about" onClick={() => setMenuOpen(false)}>About</a>
-          <a href="#work" onClick={() => setMenuOpen(false)}>Selected work</a>
+          <Link href="/work" onClick={() => setMenuOpen(false)}>Work</Link>
           <a href="#expertise" onClick={() => setMenuOpen(false)}>Expertise</a>
           <a href="#contact" onClick={() => setMenuOpen(false)}>Contact</a>
         </nav>
@@ -65,7 +58,15 @@ export default function Home() {
 
         <section className="intro wrap" id="about"><div className="section-index"><span className="index-dot"/> 01 / WHO I AM</div><div className="intro-body"><h2>I connect the <span className="soft">big picture</span> with the <span className="underline-accent">small details.</span></h2><div className="intro-bottom"><p>My work began with hands-on creative execution and grew into marketing strategy and leadership. Today I connect positioning and campaign direction with the practical work of launching, measuring and improving them. My portfolio spans healthcare, fitness and brand development.</p><a href="#expertise" className="text-link">MORE ABOUT MY APPROACH <ArrowUpRight size={19}/></a></div></div></section>
 
-        <section className="work-section wrap" id="work"><div className="section-heading"><div><div className="section-index"><span className="index-dot"/> 02 / PORTFOLIO</div><h2>Selected <em>work.</em></h2></div><p>Projects across brand strategy, creative direction, customer acquisition and operations.</p></div><div className="projects">{projects.map((project) => <article className="project" key={project.n}><div className={`project-visual ${project.theme} project-photo`}><span className="project-visual-top">{project.label}</span><Image src={project.cover} alt="" fill sizes="(max-width: 760px) calc(100vw - 44px), 45vw" /><span className="project-visual-bottom">MH — SELECTED WORK <span>{project.number} / {String(projects.length).padStart(2, '0')}</span></span></div><div className="project-info"><div><span className="project-category">{project.type}</span><h3>{project.href ? <Link href={project.href} className="project-link">{project.name}</Link> : project.name}</h3><p>{project.description}</p></div>{project.href && <span className="project-icon" aria-hidden="true"><ArrowUpRight size={23}/></span>}</div></article>)}</div><p className="project-note">Project images are illustrative.</p></section>
+        <section className="work-section wrap" id="work">
+          <div className="section-heading">
+            <div><div className="section-index"><span className="index-dot"/> 02 / PORTFOLIO</div><h2>Selected <em>work.</em></h2></div>
+            <p>Projects across brand strategy, creative direction, customer acquisition and operations.</p>
+          </div>
+          <ProjectGrid />
+          <p className="project-note">Project images are illustrative.</p>
+          <Link className="text-link" href="/work" style={{ display: 'inline-flex' }}>VIEW ALL WORK <ArrowUpRight size={19} aria-hidden="true" /></Link>
+        </section>
 
         <section className="expertise-section" id="expertise"><div className="wrap expertise-inner"><div className="expertise-head"><div className="section-index light-index"><span className="index-dot"/> 03 / WHAT I DO</div><h2>My toolkit is <em>connected.</em></h2><p>I work across five disciplines, from defining the brief to reviewing what the work achieved.</p></div><div className="service-list">{services.map((service, i) => <div className={`service-row ${openService === i ? 'service-active' : ''}`} key={service.num}><button aria-expanded={openService === i} onClick={() => setOpenService(openService === i ? null : i)}><span className="service-num">{service.num}</span><span className="service-title">{service.name}</span><span className="service-toggle">{openService === i ? <X size={20}/> : <Plus size={20}/>}</span></button>{openService === i && <p className="service-desc">{service.desc}</p>}</div>)}</div></div></section>
 
