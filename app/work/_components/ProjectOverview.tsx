@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import BackHome from '../../_components/BackHome';
 import { ArrowLeft, ArrowUpRight } from 'lucide-react';
 import styles from '../pharmaceutical-logistics-optimization/case-study.module.css';
 
@@ -9,7 +10,10 @@ export default function ProjectOverview({ title, project }: {
 }) {
   return (
     <main className={`wrap ${styles.page}`}>
-      <Link className={styles.back} href="/work"><ArrowLeft size={18} aria-hidden="true" /> Selected work</Link>
+      <nav className="page-return-links" aria-label="Page shortcuts">
+        <BackHome />
+        <Link className={styles.back} href="/work"><ArrowLeft size={18} aria-hidden="true" /> Selected work</Link>
+      </nav>
       <article>
         <header className={styles.header}>
           <p className="section-index"><span className="index-dot" /> {project.type}</p>

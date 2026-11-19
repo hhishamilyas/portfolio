@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
+import BackHome from '../../_components/BackHome';
 import { dtricho } from './project';
 import { ArrowLeft, ArrowUpRight } from 'lucide-react';
 import layout from '../pharmaceutical-logistics-optimization/case-study.module.css';
@@ -70,7 +71,10 @@ function ComparisonChart({ title, before, after, max, unit, note }: {
 export default function DTrichoCaseStudy() {
   return (
     <main className={`wrap ${layout.page}`}>
-      <Link className={layout.back} href="/work"><ArrowLeft size={18} aria-hidden="true" /> Selected work</Link>
+      <nav className="page-return-links" aria-label="Page shortcuts">
+        <BackHome />
+        <Link className={layout.back} href="/work"><ArrowLeft size={18} aria-hidden="true" /> Selected work</Link>
+      </nav>
       <article>
         <header className={layout.header}>
           <p className="section-index"><span className="index-dot" /> DTRICHO · HEALTHCARE GROWTH</p>
