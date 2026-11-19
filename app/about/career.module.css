@@ -1,19 +1,50 @@
-.career { padding-block: clamp(32px, 6vw, 72px); border-top: 1px solid var(--line); }
-.career h2 { margin: 0 0 24px; font: 800 clamp(2rem, 5vw, 3.8rem)/1.05 Manrope, sans-serif; letter-spacing: -.06em; }
-.timeline { margin: 0 0 24px; padding: 0; list-style: none; }
-.timeline li {
+.career { padding-block: clamp(36px, 6vw, 76px); border-top: 1px solid var(--line); }
+.career h2 { margin: 0 0 32px; font: 800 clamp(2.3rem, 6vw, 4.5rem)/1 Manrope, sans-serif; letter-spacing: -.065em; }
+
+.timeline { margin: 0 0 24px 6px; padding: 0 0 0 clamp(18px, 3vw, 36px); border-left: 1px solid var(--line); list-style: none; }
+.timeline li { position: relative; margin: 0 0 12px; }
+.timeline li::before {
+  content: '';
+  position: absolute;
+  top: 28px;
+  left: calc(-1 * clamp(18px, 3vw, 36px) - 5px);
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--paper);
+  border: 1px solid #a63824;
+}
+.timeline li:has(details[open])::before { background: #a63824; }
+
+.role { border: 1px solid var(--line); border-radius: 10px; background: #edede8; }
+.role[open] { background: #f9f8f4; border-color: #b9a59b; }
+.role summary {
   display: grid;
-  grid-template-columns: minmax(145px, 1fr) minmax(0, 3fr);
-  gap: 10px 30px;
-  padding: 22px 0;
-  border-top: 1px solid var(--line);
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 5px 14px;
+  list-style: none;
+  cursor: pointer;
+  padding: 16px clamp(13px, 3vw, 30px);
+  border-radius: inherit;
 }
-.timeline li:last-child { border-bottom: 1px solid var(--line); }
-.period { color: #a63824; font-size: .88rem; font-weight: 800; }
-.timeline h3 { margin: 0 0 4px; font: 800 clamp(1.15rem, 2.5vw, 1.65rem)/1.18 Manrope, sans-serif; }
-.company { font-weight: 700; }
-.timeline p { margin: 8px 0 0; max-width: 65ch; color: #53534d; line-height: 1.55; }
+.role summary::-webkit-details-marker { display: none; }
+.period { color: #a63824; font-size: .82rem; font-weight: 800; }
+.title { grid-column: 1; font: 800 clamp(1.15rem, 2.5vw, 1.65rem)/1.2 Manrope, sans-serif; }
+.company { grid-column: 1; color: #53534d; font-weight: 700; font-size: .9rem; }
+.toggle {
+  display: grid;
+  place-items: center;
+  grid-column: 2;
+  grid-row: 1 / 4;
+  border: 1px solid #98948b;
+  border-radius: 50%;
+  width: 34px;
+  height: 34px;
+}
+.role[open] .toggle { color: white; background: #a63824; border-color: #a63824; }
+.role[open] .toggle svg { transform: rotate(45deg); }
+.role summary:hover .title { color: #a63824; }
+.role summary:focus-visible { outline: 2px solid #a63824; outline-offset: 3px; }
+.role p { margin: 0 clamp(13px, 3vw, 30px); padding: 12px 0 16px; border-top: 1px solid var(--line); color: #53534d; line-height: 1.55; }
 .profile { display: inline-flex; white-space: normal; }
-@media (max-width: 600px) {
-  .timeline li { grid-template-columns: minmax(0, 1fr); }
-}
