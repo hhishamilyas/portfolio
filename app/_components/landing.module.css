@@ -1,0 +1,18 @@
+.page { padding-block: clamp(48px, 9vw, 120px); }
+.page :is(a, button, input, textarea, select):focus-visible { outline: 2px solid #a63824; outline-offset: 4px; }
+.hero { padding-bottom: clamp(28px, 5vw, 64px); border-bottom: 1px solid var(--line); }
+.hero h1 { max-width: 16ch; margin: 24px 0; font: 800 clamp(2.6rem, 8vw, 7rem)/1.03 Manrope, sans-serif; letter-spacing: -.075em; }
+.intro { color: #53534d; max-width: 54ch; font-size: clamp(1.1rem, 2.2vw, 1.45rem); line-height: 1.55; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 270px), 1fr)); gap: 20px; padding-block: 32px; }
+.card { padding: clamp(18px, 3vw, 32px); border: 1px solid var(--line); background: #edede8; }
+.card h2 { margin: 0 0 12px; font: 800 1.4rem/1.18 Manrope, sans-serif; letter-spacing: -.03em; }
+.card p, .body p, .form p { color: #53534d; line-height: 1.65; }
+.body { max-width: 66ch; padding-block: 24px; }
+.actions { display: flex; flex-wrap: wrap; align-items: center; gap: 18px 28px; margin-top: 16px; }
+.actions a { overflow-wrap: anywhere; }
+.action, .form button { display: inline-flex; align-items: center; gap: 8px; padding: 12px 18px; border: 1px solid var(--ink); border-radius: 30px; background: var(--ink); color: var(--paper); font-weight: 800; cursor: pointer; }
+.action:hover, .form button:hover { background: var(--orange); color: var(--ink); }
+.form { display: grid; gap: 14px; max-width: 620px; }
+.form :is(input, textarea, select) { display: block; width: 100%; margin-top: 6px; padding: 10px; border: 1px solid #8a8880; border-radius: 4px; background: transparent; color: inherit; font: inherit; }
+.form label { font-weight: 700; }
+.form button { justify-self: start; }

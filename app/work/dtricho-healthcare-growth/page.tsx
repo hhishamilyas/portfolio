@@ -166,7 +166,7 @@ export default function DTrichoCaseStudy() {
 
       <footer className={layout.footer}>
         <Link className={layout.back} href="/work"><ArrowLeft size={18} aria-hidden="true" /> Selected work</Link>
-        <Link className={layout.back} href="/#contact">Get in touch <ArrowUpRight size={18} aria-hidden="true" /></Link>
+        <Link className={layout.back} href="/contact">Get in touch <ArrowUpRight size={18} aria-hidden="true" /></Link>
       </footer>
     </main>
   );

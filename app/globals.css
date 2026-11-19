@@ -197,3 +197,5 @@
     transform: translate(2px, -2px);
   }
 }
+
+.site-header a[aria-current="page"] { color: #a63824; }
