@@ -58,10 +58,22 @@
 @media (prefers-reduced-motion: no-preference) {
   .card { animation: step-in .38s cubic-bezier(.2, .65, .3, 1) both; }
   @keyframes step-in {
-    from { opacity: .15; transform: translate(12px, 8px) scale(.985); }
-    to { opacity: 1; transform: translate(0) scale(1); }
+    from { opacity: .15; translate: 12px 8px; scale: .985; }
+    to { opacity: 1; translate: 0; scale: 1; }
   }
 }
 @media (max-width: 720px) {
   .card { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (prefers-reduced-motion: no-preference) and (hover: hover) and (pointer: fine) {
+  .card {
+    transform: perspective(1000px) rotateX(calc(var(--card-y, 0) * -3deg)) rotateY(calc(var(--card-x, 0) * 4deg));
+    transition: transform 180ms ease-out;
+  }
+  .cardHeader, .outcomes, .icon, .deck::after { transition: transform 180ms ease-out; }
+  .cardHeader { transform: translate(calc(var(--card-x, 0) * 8px), calc(var(--card-y, 0) * 6px)); }
+  .outcomes { transform: translate(calc(var(--card-x, 0) * 3px), calc(var(--card-y, 0) * 2px)); }
+  .icon { transform: translate(calc(var(--card-x, 0) * 4px), calc(var(--card-y, 0) * 3px)); }
+  .deck::after { transform: translate(calc(var(--card-x, 0) * -5px), calc(var(--card-y, 0) * -3px)); }
 }

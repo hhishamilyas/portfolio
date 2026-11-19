@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import type { PointerEvent } from 'react';
 import { ArrowLeft, ArrowRight, BarChart3, Compass, Layers3, MousePointer2, Palette, RotateCcw } from 'lucide-react';
 import { services } from './services';
 import styles from './journey.module.css';
@@ -45,6 +46,22 @@ const steps = [
   },
 ];
 
+function moveCard(event: PointerEvent<HTMLDivElement>) {
+  if (event.pointerType !== 'mouse') return;
+  const deck = event.currentTarget;
+  const bounds = deck.getBoundingClientRect();
+  const x = Math.max(-1, Math.min(1, 2 * (event.clientX - bounds.left) / bounds.width - 1));
+  const y = Math.max(-1, Math.min(1, 2 * (event.clientY - bounds.top) / bounds.height - 1));
+
+  deck.style.setProperty('--card-x', String(x));
+  deck.style.setProperty('--card-y', String(y));
+}
+
+function resetCard(event: PointerEvent<HTMLDivElement>) {
+  event.currentTarget.style.removeProperty('--card-x');
+  event.currentTarget.style.removeProperty('--card-y');
+}
+
 export default function ExpertiseJourney() {
   const [active, setActive] = useState(0);
   const step = steps[active];
@@ -74,7 +91,13 @@ export default function ExpertiseJourney() {
         ))}
       </ol>
 
-      <div className={styles.deck} id="journey-card">
+      <div
+        className={styles.deck}
+        id="journey-card"
+        onPointerMove={moveCard}
+        onPointerLeave={resetCard}
+        onPointerCancel={resetCard}
+      >
         <article className={styles.card} key={active}>
           <header className={styles.cardHeader}>
             <span className={styles.icon}><Icon size={25} aria-hidden="true" /></span>
