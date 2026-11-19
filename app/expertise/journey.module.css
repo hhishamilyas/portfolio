@@ -2,7 +2,7 @@
 .intro h2 { margin: 0 0 8px; font: 800 clamp(2rem, 5vw, 3.8rem)/1 Manrope, sans-serif; letter-spacing: -.055em; }
 .intro p { color: #53534d; margin: 0 0 24px; }
 .steps { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; padding: 0; margin: 0 0 20px; }
-.steps button, .controls button {
+.steps a {
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -15,9 +15,10 @@
   font: 700 .86rem/1.2 Manrope, sans-serif;
   cursor: pointer;
 }
-.steps button:hover, .controls button:not(:disabled):hover { border-color: #a63824; }
-.steps button[aria-current] { background: #f6e4dc; border-color: #a63824; color: #792918; }
+.steps a:hover { border-color: #a63824; color: #792918; }
 .stepNumber { font-variant-numeric: tabular-nums; }
+.cards { display: grid; gap: 28px; }
+.reveal { scroll-margin-top: 24px; }
 
 .deck { position: relative; isolation: isolate; }
 .deck::after {
@@ -48,19 +49,8 @@
 .outcomes dt { font-weight: 800; }
 .outcomes dd { margin: 4px 0 0; color: #494844; line-height: 1.5; }
 
-.controls { display: flex; justify-content: space-between; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 24px; }
-.controls button:disabled { opacity: .55; cursor: default; }
-.controls .next { background: var(--ink); color: white; border-color: var(--ink); }
-.controls .next:hover { background: #922f1e; }
-.progress { color: #53534d; font-size: .84rem; font-variant-numeric: tabular-nums; }
-.srOnly { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
-
-@media (prefers-reduced-motion: no-preference) {
-  .card { animation: step-in .38s cubic-bezier(.2, .65, .3, 1) both; }
-  @keyframes step-in {
-    from { opacity: .15; translate: 12px 8px; scale: .985; }
-    to { opacity: 1; translate: 0; scale: 1; }
-  }
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1 !important; transform: none !important; }
 }
 @media (max-width: 720px) {
   .card { grid-template-columns: minmax(0, 1fr); }
@@ -76,14 +66,4 @@
   .outcomes { transform: translate(calc(var(--card-x, 0) * 3px), calc(var(--card-y, 0) * 2px)); }
   .icon { transform: translate(calc(var(--card-x, 0) * 4px), calc(var(--card-y, 0) * 3px)); }
   .deck::after { transform: translate(calc(var(--card-x, 0) * -5px), calc(var(--card-y, 0) * -3px)); }
-}
-
-.controls .play { border-color: #a63824; color: #792918; background: #f6e4dc; }
-.controls .play:hover { background: #eed6c9; }
-.progress { margin: 12px 0 0; }
-.playbackTrack { margin-top: 8px; height: 4px; overflow: hidden; border-radius: 4px; background: #e4dad2; }
-.playbackFill { height: 100%; background: #a63824; }
-@media (prefers-reduced-motion: no-preference) {
-  .playbackFill { transform-origin: left; animation: play-progress linear both; }
-  @keyframes play-progress { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 }
