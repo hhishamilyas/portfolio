@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
-import { ArrowLeft } from 'lucide-react';
+import BackHome from '../_components/BackHome';
 import ProjectGrid from './_components/ProjectGrid';
 import styles from './pharmaceutical-logistics-optimization/case-study.module.css';
 
@@ -12,7 +11,7 @@ export const metadata: Metadata = {
 export default function WorkPage() {
   return (
     <main className={`site-shell wrap ${styles.page}`}>
-      <Link className={styles.back} href="/"><ArrowLeft size={18} aria-hidden="true" /> Home</Link>
+      <BackHome />
       <header className={styles.header}>
         <h1>Selected work.</h1>
         <p className={styles.deck}>Projects across brand strategy, creative direction, customer acquisition and operations.</p>

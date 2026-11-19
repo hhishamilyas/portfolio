@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
+import BackHome from '../../_components/BackHome';
 import { pharmaLogistics } from './project';
 import { ArrowLeft, ArrowUpRight } from 'lucide-react';
 import styles from './case-study.module.css';
@@ -26,9 +27,12 @@ const sections = [
 export default function PharmaLogisticsCaseStudy() {
   return (
     <main className={`wrap ${styles.page}`}>
-      <Link className={styles.back} href="/work">
-        <ArrowLeft size={18} aria-hidden="true" /> Selected work
-      </Link>
+      <nav className="page-return-links" aria-label="Page shortcuts">
+        <BackHome />
+        <Link className={styles.back} href="/work">
+          <ArrowLeft size={18} aria-hidden="true" /> Selected work
+        </Link>
+      </nav>
       <article>
         <header className={styles.header}>
           <p className="section-index"><span className="index-dot" /> OPERATIONS · CASE STUDY</p>

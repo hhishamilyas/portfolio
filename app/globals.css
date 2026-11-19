@@ -199,3 +199,16 @@
 }
 
 .site-header a[aria-current="page"] { color: #a63824; }
+
+.page-return-links { display: flex; flex-wrap: wrap; gap: 0 24px; }
+
+.page-home-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  font-size: .9rem;
+  font-weight: 800;
+}
+.page-home-link:hover { color: #a63824; }
+.page-home-link:focus-visible { outline: 2px solid #a63824; outline-offset: 5px; }
