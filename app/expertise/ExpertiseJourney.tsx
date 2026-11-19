@@ -1,8 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import type { PointerEvent } from 'react';
-import { ArrowLeft, ArrowRight, BarChart3, Compass, Layers3, MousePointer2, Palette, RotateCcw } from 'lucide-react';
+import { ArrowLeft, ArrowRight, BarChart3, Compass, Layers3, MousePointer2, Palette, Pause, Play, RotateCcw } from 'lucide-react';
 import { services } from './services';
 import styles from './journey.module.css';
 
@@ -62,17 +62,43 @@ function resetCard(event: PointerEvent<HTMLDivElement>) {
   event.currentTarget.style.removeProperty('--card-y');
 }
 
+const stepDuration = 9000;
+
 export default function ExpertiseJourney() {
   const [active, setActive] = useState(0);
+  const [playing, setPlaying] = useState(false);
   const step = steps[active];
   const Icon = step.icon;
   const isLast = active === steps.length - 1;
+
+  useEffect(() => {
+    if (!playing) return;
+    const timer = window.setTimeout(() => {
+      if (isLast) setPlaying(false);
+      else setActive(active + 1);
+    }, stepDuration);
+    return () => window.clearTimeout(timer);
+  }, [active, isLast, playing]);
+
+  function selectStep(index: number) {
+    setPlaying(false);
+    setActive(index);
+  }
+
+  function togglePlayback() {
+    if (playing) {
+      setPlaying(false);
+    } else {
+      if (isLast) setActive(0);
+      setPlaying(true);
+    }
+  }
 
   return (
     <section className={styles.journey} aria-labelledby="journey-heading">
       <div className={styles.intro}>
         <h2 id="journey-heading">Your growth journey</h2>
-        <p>Choose a step or follow the cards in order.</p>
+        <p>Play the journey to watch the cards advance, or explore at your own pace.</p>
       </div>
 
       <ol className={styles.steps} aria-label="Journey steps">
@@ -82,7 +108,7 @@ export default function ExpertiseJourney() {
               type="button"
               aria-current={index === active ? 'step' : undefined}
               aria-controls="journey-card"
-              onClick={() => setActive(index)}
+              onClick={() => selectStep(index)}
             >
               <span className={styles.stepNumber} aria-hidden="true">{index + 1}</span>
               {label}
@@ -113,14 +139,22 @@ export default function ExpertiseJourney() {
       </div>
 
       <div className={styles.controls}>
-        <button type="button" onClick={() => setActive(index => Math.max(0, index - 1))} disabled={active === 0}>
+        <button type="button" onClick={() => selectStep(active - 1)} disabled={active === 0}>
           <ArrowLeft size={17} aria-hidden="true" /> Previous
         </button>
-        <span className={styles.progress} aria-live="polite" aria-atomic="true">Step {active + 1} of {steps.length}<span className={styles.srOnly}>: {step.label}</span></span>
-        <button className={styles.next} type="button" onClick={() => setActive(index => (index + 1) % steps.length)}>
+        <button className={styles.play} type="button" onClick={togglePlayback} aria-controls="journey-card">
+          {playing ? <><Pause size={17} aria-hidden="true" /> Pause journey</> : <><Play size={17} aria-hidden="true" /> Play journey</>}
+        </button>
+        <button className={styles.next} type="button" onClick={() => selectStep((active + 1) % steps.length)}>
           {isLast ? <>Start again <RotateCcw size={17} aria-hidden="true" /></> : <>Next step <ArrowRight size={17} aria-hidden="true" /></>}
         </button>
       </div>
+      <p className={styles.progress} aria-live={playing ? 'off' : 'polite'} aria-atomic="true">Step {active + 1} of {steps.length}<span className={styles.srOnly}>: {step.label}</span></p>
+      {playing && (
+        <div className={styles.playbackTrack} aria-hidden="true">
+          <div key={active} className={styles.playbackFill} style={{ animationDuration: `${stepDuration}ms` }} />
+        </div>
+      )}
     </section>
   );
 }
