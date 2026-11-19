@@ -1,8 +1,8 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { motion, useReducedMotion } from 'framer-motion';
 import type { PointerEvent } from 'react';
-import { ArrowLeft, ArrowRight, BarChart3, Compass, Layers3, MousePointer2, Palette, Pause, Play, RotateCcw } from 'lucide-react';
+import { BarChart3, Compass, Layers3, MousePointer2, Palette } from 'lucide-react';
 import { services } from './services';
 import styles from './journey.module.css';
 
@@ -62,99 +62,59 @@ function resetCard(event: PointerEvent<HTMLDivElement>) {
   event.currentTarget.style.removeProperty('--card-y');
 }
 
-const stepDuration = 9000;
-
 export default function ExpertiseJourney() {
-  const [active, setActive] = useState(0);
-  const [playing, setPlaying] = useState(false);
-  const step = steps[active];
-  const Icon = step.icon;
-  const isLast = active === steps.length - 1;
-
-  useEffect(() => {
-    if (!playing) return;
-    const timer = window.setTimeout(() => {
-      if (isLast) setPlaying(false);
-      else setActive(active + 1);
-    }, stepDuration);
-    return () => window.clearTimeout(timer);
-  }, [active, isLast, playing]);
-
-  function selectStep(index: number) {
-    setPlaying(false);
-    setActive(index);
-  }
-
-  function togglePlayback() {
-    if (playing) {
-      setPlaying(false);
-    } else {
-      if (isLast) setActive(0);
-      setPlaying(true);
-    }
-  }
+  const reduceMotion = useReducedMotion();
 
   return (
     <section className={styles.journey} aria-labelledby="journey-heading">
       <div className={styles.intro}>
         <h2 id="journey-heading">Your growth journey</h2>
-        <p>Play the journey to watch the cards advance, or explore at your own pace.</p>
+        <p>Scroll through the five steps, or jump straight to one.</p>
       </div>
 
       <ol className={styles.steps} aria-label="Journey steps">
-        {steps.map(({ label }, index) => (
-          <li key={label}>
-            <button
-              type="button"
-              aria-current={index === active ? 'step' : undefined}
-              aria-controls="journey-card"
-              onClick={() => selectStep(index)}
-            >
+        {steps.map(({ label, service }, index) => (
+          <li key={service.num}>
+            <a href={`#journey-${service.num}`}>
               <span className={styles.stepNumber} aria-hidden="true">{index + 1}</span>
               {label}
-            </button>
+            </a>
           </li>
         ))}
       </ol>
 
-      <div
-        className={styles.deck}
-        id="journey-card"
-        onPointerMove={moveCard}
-        onPointerLeave={resetCard}
-        onPointerCancel={resetCard}
-      >
-        <article className={styles.card} key={active}>
-          <header className={styles.cardHeader}>
-            <span className={styles.icon}><Icon size={25} aria-hidden="true" /></span>
-            <p>{step.service.name}</p>
-            <h3>{step.title}</h3>
-          </header>
-          <dl className={styles.outcomes}>
-            <div><dt>What we’ll do</dt><dd>{step.work}</dd></div>
-            <div><dt>What changes for you</dt><dd>{step.impact}</dd></div>
-            <div><dt>How we’ll measure it</dt><dd>{step.measure}</dd></div>
-          </dl>
-        </article>
-      </div>
+      <div className={styles.cards}>
+        {steps.map((step, index) => {
+          const Icon = step.icon;
 
-      <div className={styles.controls}>
-        <button type="button" onClick={() => selectStep(active - 1)} disabled={active === 0}>
-          <ArrowLeft size={17} aria-hidden="true" /> Previous
-        </button>
-        <button className={styles.play} type="button" onClick={togglePlayback} aria-controls="journey-card">
-          {playing ? <><Pause size={17} aria-hidden="true" /> Pause journey</> : <><Play size={17} aria-hidden="true" /> Play journey</>}
-        </button>
-        <button className={styles.next} type="button" onClick={() => selectStep((active + 1) % steps.length)}>
-          {isLast ? <>Start again <RotateCcw size={17} aria-hidden="true" /></> : <>Next step <ArrowRight size={17} aria-hidden="true" /></>}
-        </button>
+          return (
+            <motion.div
+              className={styles.reveal}
+              id={`journey-${step.service.num}`}
+              key={step.service.num}
+              initial={reduceMotion ? false : { opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: reduceMotion ? 0 : 0.4, delay: reduceMotion ? 0 : index / 10, ease: 'easeOut' }}
+            >
+              <div className={styles.deck} onPointerMove={moveCard} onPointerLeave={resetCard} onPointerCancel={resetCard}>
+                <article className={styles.card}>
+                  <header className={styles.cardHeader}>
+                    <span className={styles.icon}><Icon size={25} aria-hidden="true" /></span>
+                    <p>{step.service.name}</p>
+                    <h3>{step.title}</h3>
+                  </header>
+                  <dl className={styles.outcomes}>
+                    <div><dt>What we’ll do</dt><dd>{step.work}</dd></div>
+                    <div><dt>What changes for you</dt><dd>{step.impact}</dd></div>
+                    <div><dt>How we’ll measure it</dt><dd>{step.measure}</dd></div>
+                  </dl>
+                </article>
+              </div>
+            </motion.div>
+          );
+        })}
       </div>
-      <p className={styles.progress} aria-live={playing ? 'off' : 'polite'} aria-atomic="true">Step {active + 1} of {steps.length}<span className={styles.srOnly}>: {step.label}</span></p>
-      {playing && (
-        <div className={styles.playbackTrack} aria-hidden="true">
-          <div key={active} className={styles.playbackFill} style={{ animationDuration: `${stepDuration}ms` }} />
-        </div>
-      )}
     </section>
   );
 }
