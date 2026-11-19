@@ -1,10 +1,13 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
+import hero from './home-hero.module.css';
 import { useEffect, useState } from 'react';
 import { services } from './expertise/services';
 import ProjectGrid from './work/_components/ProjectGrid';
-import { ArrowDownRight, ArrowUpRight, X, Plus, MoveUpRight } from 'lucide-react';
+import { projects } from './work/projects';
+import { ArrowDown, ArrowDownRight, ArrowUpRight, X, Plus, MoveUpRight } from 'lucide-react';
 
 const contactEmail = process.env.NEXT_PUBLIC_CONTACT_EMAIL;
 const linkedinUrl = process.env.NEXT_PUBLIC_LINKEDIN_URL;
@@ -18,21 +21,27 @@ export default function Home() {
   return (
     <div className="site-shell">
       <main>
-        <section className="hero wrap" aria-labelledby="hero-heading">
-          <div className="hero-main">
-            <div className="hero-left">
-              <p className="eyebrow">Marketing Strategist &amp; Creative Leader</p>
-              <h1 id="hero-heading">Hisham<br/><em>Ilyas<span className="hero-period">.</span></em></h1>
-              <p className="hero-description">I bring brand strategy, creative direction and performance marketing together to help businesses grow.</p>
-              <div className="hero-actions">
-                <a className="hero-primary" href="#work">View selected work <ArrowDownRight size={19} aria-hidden="true" /></a>
-                <Link className="hero-secondary" href="/contact">Get in touch <ArrowUpRight size={17} aria-hidden="true" /></Link>
-              </div>
-              <p className="availability"><span className="status-dot" /> Open to marketing leadership roles in Qatar and the GCC</p>
+        <section className={`wrap ${hero.hero}`} aria-labelledby="hero-heading">
+          <div className={hero.content}>
+            <dl className={hero.highlights}>
+              <div><dt>Featured projects</dt><dd>{String(projects.length).padStart(2, '0')}</dd></div>
+              <div><dt>Lower CPL at DTricho</dt><dd>40%</dd></div>
+            </dl>
+            <div className={hero.intro}>
+              <h1 id="hero-heading">Hello<span>.</span> <span className={hero.srOnly}>I’m Hisham Ilyas.</span></h1>
+              <p className={hero.name} aria-hidden="true">I’m Hisham Ilyas.</p>
+              <p className={hero.role}>Marketing strategist &amp; creative leader</p>
             </div>
-            <div className="hero-art" aria-label="Abstract creative composition representing strategy and growth" role="img">
-              <div className="art-grid"/><div className="art-corner top-left">H / 26</div><div className="art-orbit orbit-one"/><div className="art-orbit orbit-two"/><div className="art-sphere"><div className="sphere-shine"/></div><div className="art-cross">✳</div><div className="art-stamp">THINK<br/>MAKE<br/>GROW<span>↗</span></div><div className="art-corner bottom-right">STRATEGY IN MOTION — 001</div>
-            </div>
+            <a className={hero.workLink} href="#work">Explore selected work <ArrowDown size={17} aria-hidden="true" /></a>
+          </div>
+          <div className={hero.portrait}>
+            <Image
+              src="/images/hisham-portrait.webp"
+              alt="Black-and-white portrait of Hisham Ilyas"
+              fill
+              sizes="(max-width: 740px) calc(100vw - 44px), (max-width: 1440px) 48vw, 685px"
+              priority
+            />
           </div>
         </section>
 

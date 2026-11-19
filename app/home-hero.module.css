@@ -1,0 +1,47 @@
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
+  gap: 24px;
+  align-items: stretch;
+  min-height: clamp(500px, 55vw, 750px);
+  border-bottom: 1px solid var(--line);
+}
+
+.content {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  align-items: center;
+  gap: 24px;
+  padding-block: clamp(38px, 6vw, 88px) 42px;
+}
+
+.highlights { display: flex; flex-wrap: wrap; gap: 14px clamp(24px, 4vw, 60px); margin: 0; }
+.highlights div { display: flex; flex-direction: column-reverse; gap: 4px; }
+.highlights dt, .role { color: #55544f; }
+.highlights dt { font-size: .82rem; }
+.highlights dd { margin: 0; font: 500 clamp(1.8rem, 3.2vw, 3rem)/1 Manrope, sans-serif; letter-spacing: -.055em; }
+
+.intro h1 { margin: 0; font: 500 clamp(5rem, 13vw, 12rem)/.87 Manrope, sans-serif; letter-spacing: -.09em; }
+.intro h1 > span:first-child { color: #a63824; }
+.name { font-size: clamp(1.2rem, 2.2vw, 1.85rem); font-weight: 700; margin: 24px 0 5px; }
+.role { font-size: clamp(.95rem, 1.55vw, 1.1rem); margin: 0; }
+.srOnly { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+.workLink { display: inline-flex; align-items: center; justify-self: start; gap: 9px; min-height: 44px; font-size: .9rem; font-weight: 800; text-decoration: underline; text-underline-offset: 5px; }
+.workLink:hover { color: #a63824; }
+
+.portrait { position: relative; min-width: 0; }
+.portrait img { object-fit: contain; object-position: center bottom; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .intro, .portrait { animation: portrait-enter .65s ease-out both; }
+  @keyframes portrait-enter { from { transform: translateY(14px); } to { transform: translateY(0); } }
+}
+
+@media (max-width: 740px) {
+  .hero { grid-template-columns: minmax(0, 1fr); gap: 0; min-height: 0; }
+  .content { padding-block: 33px 10px; gap: 27px; }
+  .intro h1 { font-size: clamp(4.75rem, 19vw, 8rem); }
+  .name { margin-top: 15px; }
+  .portrait { width: min(100%, 520px); height: clamp(300px, 94vw, 490px); justify-self: center; }
+}
