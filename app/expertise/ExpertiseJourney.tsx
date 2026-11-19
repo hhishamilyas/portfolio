@@ -1,6 +1,7 @@
 'use client';
 
 import { motion, useReducedMotion } from 'framer-motion';
+import { useEffect, useRef, useState } from 'react';
 import type { PointerEvent } from 'react';
 import { BarChart3, Compass, Layers3, MousePointer2, Palette } from 'lucide-react';
 import { services } from './services';
@@ -62,58 +63,124 @@ function resetCard(event: PointerEvent<HTMLDivElement>) {
   event.currentTarget.style.removeProperty('--card-y');
 }
 
+const lastStep = steps.length - 1;
+const inset = 16;
+
+function getJourneyBounds(track: HTMLDivElement, stage: HTMLDivElement) {
+  const top = Math.min(inset, window.innerHeight - stage.offsetHeight - inset);
+  const start = window.scrollY + track.getBoundingClientRect().top - top;
+  return { top, start, distance: track.offsetHeight - stage.offsetHeight };
+}
+
 export default function ExpertiseJourney() {
   const reduceMotion = useReducedMotion();
+  const [active, setActive] = useState(0);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const stageRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const track = trackRef.current;
+    const stage = stageRef.current;
+    if (!track || !stage) return;
+
+    function updateStep() {
+      if (!track || !stage) return;
+      const { start, distance } = getJourneyBounds(track, stage);
+      const progress = (window.scrollY - start) / distance;
+      setActive(Math.max(0, Math.min(lastStep, Math.round(progress * lastStep))));
+    }
+
+    function resizeStage() {
+      if (!track || !stage) return;
+      stage.style.setProperty('--pin-top', `${getJourneyBounds(track, stage).top}px`);
+      updateStep();
+    }
+
+    const resize = new ResizeObserver(resizeStage);
+    resize.observe(stage);
+    resizeStage();
+    window.addEventListener('resize', resizeStage);
+    window.addEventListener('scroll', updateStep, { passive: true });
+    return () => {
+      resize.disconnect();
+      window.removeEventListener('resize', resizeStage);
+      window.removeEventListener('scroll', updateStep);
+    };
+  }, []);
+
+  function goToStep(index: number) {
+    const track = trackRef.current;
+    const stage = stageRef.current;
+    if (!track || !stage) return;
+
+    const { start, distance } = getJourneyBounds(track, stage);
+    setActive(index);
+    window.scrollTo({ top: start + distance * index / lastStep, behavior: 'instant' });
+  }
 
   return (
     <section className={styles.journey} aria-labelledby="journey-heading">
       <div className={styles.intro}>
         <h2 id="journey-heading">Your growth journey</h2>
-        <p>Scroll through the five steps, or jump straight to one.</p>
+        <p>Scroll through the five steps, or use the slider to jump ahead.</p>
       </div>
 
-      <ol className={styles.steps} aria-label="Journey steps">
-        {steps.map(({ label, service }, index) => (
-          <li key={service.num}>
-            <a href={`#journey-${service.num}`}>
-              <span className={styles.stepNumber} aria-hidden="true">{index + 1}</span>
-              {label}
-            </a>
-          </li>
-        ))}
-      </ol>
+      <div className={styles.track} ref={trackRef}>
+        <div className={styles.stage} ref={stageRef}>
+          <div className={styles.cards} id="journey-cards">
+            {steps.map((step, index) => {
+              const Icon = step.icon;
+              const current = index === active;
+              const direction = index < active ? -1 : 1;
 
-      <div className={styles.cards}>
-        {steps.map((step, index) => {
-          const Icon = step.icon;
+              return (
+                <motion.div
+                  className={styles.panel}
+                  key={step.service.num}
+                  aria-hidden={!current}
+                  initial={false}
+                  animate={current
+                    ? { opacity: 1, y: 0, visibility: 'visible', zIndex: 1 }
+                    : { opacity: 0, y: reduceMotion ? 0 : direction * 20, zIndex: 0, transitionEnd: { visibility: 'hidden' } }}
+                  transition={{ duration: reduceMotion ? 0 : 0.34, ease: 'easeOut' }}
+                >
+                  <div className={styles.deck} onPointerMove={moveCard} onPointerLeave={resetCard} onPointerCancel={resetCard}>
+                    <article className={styles.card}>
+                      <header className={styles.cardHeader}>
+                        <span className={styles.icon}><Icon size={25} aria-hidden="true" /></span>
+                        <p>{step.service.name}</p>
+                        <h3>{step.title}</h3>
+                      </header>
+                      <dl className={styles.outcomes}>
+                        <div><dt>What we’ll do</dt><dd>{step.work}</dd></div>
+                        <div><dt>What changes for you</dt><dd>{step.impact}</dd></div>
+                        <div><dt>How we’ll measure it</dt><dd>{step.measure}</dd></div>
+                      </dl>
+                    </article>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
 
-          return (
-            <motion.div
-              className={styles.reveal}
-              id={`journey-${step.service.num}`}
-              key={step.service.num}
-              initial={reduceMotion ? false : { opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: reduceMotion ? 0 : 0.4, delay: reduceMotion ? 0 : index / 10, ease: 'easeOut' }}
-            >
-              <div className={styles.deck} onPointerMove={moveCard} onPointerLeave={resetCard} onPointerCancel={resetCard}>
-                <article className={styles.card}>
-                  <header className={styles.cardHeader}>
-                    <span className={styles.icon}><Icon size={25} aria-hidden="true" /></span>
-                    <p>{step.service.name}</p>
-                    <h3>{step.title}</h3>
-                  </header>
-                  <dl className={styles.outcomes}>
-                    <div><dt>What we’ll do</dt><dd>{step.work}</dd></div>
-                    <div><dt>What changes for you</dt><dd>{step.impact}</dd></div>
-                    <div><dt>How we’ll measure it</dt><dd>{step.measure}</dd></div>
-                  </dl>
-                </article>
-              </div>
-            </motion.div>
-          );
-        })}
+          <div className={styles.slider}>
+            <div className={styles.sliderHeading}>
+              <label htmlFor="journey-step">Explore the steps</label>
+              <span aria-hidden="true">{active + 1} / {steps.length} · {steps[active].label}</span>
+            </div>
+            <input
+              id="journey-step"
+              type="range"
+              min={0}
+              max={lastStep}
+              step={1}
+              value={active}
+              aria-controls="journey-cards"
+              aria-valuetext={`Step ${active + 1} of ${steps.length}: ${steps[active].label}`}
+              onChange={event => goToStep(event.currentTarget.valueAsNumber)}
+            />
+          </div>
+        </div>
       </div>
     </section>
   );
