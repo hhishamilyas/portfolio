@@ -3,6 +3,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import hero from './home-hero.module.css';
+import EnquiryDraft from './connect/EnquiryDraft';
+import landing from './_components/landing.module.css';
 import { useEffect, useState } from 'react';
 import { services } from './expertise/services';
 import ProjectGrid from './work/_components/ProjectGrid';
@@ -61,13 +63,23 @@ export default function Home() {
 
         <section className="statement wrap"><span className="section-index"><span className="index-dot"/> 04 / HOW I WORK</span><p>Start with the business problem. Build the work around it. <em>Measure what changes.</em></p><div className="statement-sign">— HISHAM / THINK → BUILD → MEASURE</div></section>
 
-        <section className="contact" id="contact"><div className="wrap contact-inner"><div className="section-index light-index"><span className="index-dot"/> HAVE SOMETHING IN MIND?</div><h2>Let’s make<br/><em>it matter.</em><span className="contact-star">✳</span></h2><div className="contact-bottom"><p>I’m interested in marketing leadership roles in Qatar and across the GCC, as well as consulting and creative collaborations.</p>{(contactEmail || linkedinUrl || cvUrl) && (
-          <div>
-            {contactEmail && <a className="contact-button" href={`mailto:${contactEmail}`}>EMAIL ME <MoveUpRight size={23}/></a>}
-            {linkedinUrl && <a className="text-link" href={linkedinUrl}>LINKEDIN <ArrowUpRight size={19}/></a>}
-            {cvUrl && <a className="text-link" href={cvUrl} download>DOWNLOAD CV <ArrowDownRight size={19}/></a>}
+        <section className="contact" id="contact" aria-labelledby="home-contact-heading">
+          <div className="wrap contact-inner">
+            <div className="section-index light-index"><span className="index-dot"/> HAVE SOMETHING IN MIND?</div>
+            <h2 id="home-contact-heading">Let’s make<br/><em>it matter.</em><span className="contact-star" aria-hidden="true">✳</span></h2>
+            <div className={landing.homeContact}>
+              <div>
+                <p>I’m interested in marketing leadership roles in Qatar and across the GCC, as well as consulting and creative collaborations.</p>
+                <div className={landing.actions}>
+                  {contactEmail && <a className="text-link" href={`mailto:${contactEmail}`}>EMAIL ME <MoveUpRight size={19} aria-hidden="true" /></a>}
+                  {linkedinUrl && <a className="text-link" href={linkedinUrl}>LINKEDIN <ArrowUpRight size={19} aria-hidden="true" /></a>}
+                  {cvUrl && <a className="text-link" href={cvUrl} download>DOWNLOAD CV <ArrowDownRight size={19} aria-hidden="true" /></a>}
+                </div>
+              </div>
+              <EnquiryDraft email={contactEmail} />
+            </div>
           </div>
-        )}</div></div></section>
+        </section>
       </main>
       <footer className="footer wrap"><div className="footer-mark">h<span>.</span></div><span>© {year || '2026'} HISHAM ILYAS</span><span>MARKETING STRATEGIST & CREATIVE LEADER</span><a href="#top">BACK TO TOP ↑</a></footer>
     </div>
