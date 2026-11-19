@@ -77,3 +77,13 @@
   .icon { transform: translate(calc(var(--card-x, 0) * 4px), calc(var(--card-y, 0) * 3px)); }
   .deck::after { transform: translate(calc(var(--card-x, 0) * -5px), calc(var(--card-y, 0) * -3px)); }
 }
+
+.controls .play { border-color: #a63824; color: #792918; background: #f6e4dc; }
+.controls .play:hover { background: #eed6c9; }
+.progress { margin: 12px 0 0; }
+.playbackTrack { margin-top: 8px; height: 4px; overflow: hidden; border-radius: 4px; background: #e4dad2; }
+.playbackFill { height: 100%; background: #a63824; }
+@media (prefers-reduced-motion: no-preference) {
+  .playbackFill { transform-origin: left; animation: play-progress linear both; }
+  @keyframes play-progress { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+}
