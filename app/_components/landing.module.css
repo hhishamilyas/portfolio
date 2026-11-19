@@ -16,3 +16,15 @@
 .form :is(input, textarea, select) { display: block; width: 100%; margin-top: 6px; padding: 10px; border: 1px solid #8a8880; border-radius: 4px; background: transparent; color: inherit; font: inherit; }
 .form label { font-weight: 700; }
 .form button { justify-self: start; }
+
+.formFields, .homeContact { display: grid; gap: 14px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.homeContact { gap: clamp(24px, 5vw, 64px); border-top: 1px solid var(--line); padding-top: 28px; }
+.homeContact p { max-width: 50ch; color: #53534d; line-height: 1.65; margin: 0; }
+.homeContact :is(a, button, input, textarea, select):focus-visible { outline: 2px solid #a63824; outline-offset: 4px; }
+
+@media (max-width: 760px) {
+  .homeContact { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 475px) {
+  .formFields { grid-template-columns: minmax(0, 1fr); }
+}
