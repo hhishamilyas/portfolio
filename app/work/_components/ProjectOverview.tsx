@@ -23,7 +23,7 @@ export default function ProjectOverview({ title, project }: {
       </article>
       <footer className={styles.footer}>
         <Link className={styles.back} href="/work"><ArrowLeft size={18} aria-hidden="true" /> Selected work</Link>
-        <Link className={styles.back} href="/#contact">Get in touch <ArrowUpRight size={18} aria-hidden="true" /></Link>
+        <Link className={styles.back} href="/contact">Get in touch <ArrowUpRight size={18} aria-hidden="true" /></Link>
       </footer>
     </main>
   );

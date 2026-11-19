@@ -2,16 +2,9 @@
 
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
+import { services } from './expertise/services';
 import ProjectGrid from './work/_components/ProjectGrid';
 import { ArrowDownRight, ArrowUpRight, X, Plus, MoveUpRight } from 'lucide-react';
-
-const services = [
-  { num: '01', name: 'Strategy & Leadership', desc: 'Shape positioning, go-to-market plans and integrated campaigns. Align teams and stakeholders around priorities, budgets and measures of success.' },
-  { num: '02', name: 'Brand & Creative', desc: 'Translate strategy into creative concepts, visual identities and campaign content. My contribution can span hands-on design or creative direction, depending on the project.' },
-  { num: '03', name: 'Performance & Growth', desc: 'Connect paid media and lead generation to conversion journeys. Use testing and measurement to find where campaigns and landing pages can improve.' },
-  { num: '04', name: 'Marketing Technology & Analytics', desc: 'Make lead management and measurement more useful by connecting CRM workflows, automation, conversion tracking and reporting.' },
-  { num: '05', name: 'Digital Experiences & Content', desc: 'Plan websites, landing pages and content around what people need to find, understand and do. Collaborate on UX and production to carry the plan through.' },
-];
 
 const contactEmail = process.env.NEXT_PUBLIC_CONTACT_EMAIL;
 const linkedinUrl = process.env.NEXT_PUBLIC_LINKEDIN_URL;
@@ -33,7 +26,7 @@ export default function Home() {
               <p className="hero-description">I bring brand strategy, creative direction and performance marketing together to help businesses grow.</p>
               <div className="hero-actions">
                 <a className="hero-primary" href="#work">View selected work <ArrowDownRight size={19} aria-hidden="true" /></a>
-                <a className="hero-secondary" href="#contact">Get in touch <ArrowUpRight size={17} aria-hidden="true" /></a>
+                <Link className="hero-secondary" href="/contact">Get in touch <ArrowUpRight size={17} aria-hidden="true" /></Link>
               </div>
               <p className="availability"><span className="status-dot" /> Open to marketing leadership roles in Qatar and the GCC</p>
             </div>
@@ -43,7 +36,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="intro wrap" id="about"><div className="section-index"><span className="index-dot"/> 01 / WHO I AM</div><div className="intro-body"><h2>I connect the <span className="soft">big picture</span> with the <span className="underline-accent">small details.</span></h2><div className="intro-bottom"><p>My work began with hands-on creative execution and grew into marketing strategy and leadership. Today I connect positioning and campaign direction with the practical work of launching, measuring and improving them. My portfolio spans healthcare, fitness and brand development.</p><a href="#expertise" className="text-link">MORE ABOUT MY APPROACH <ArrowUpRight size={19}/></a></div></div></section>
+        <section className="intro wrap" id="about"><div className="section-index"><span className="index-dot"/> 01 / WHO I AM</div><div className="intro-body"><h2>I connect the <span className="soft">big picture</span> with the <span className="underline-accent">small details.</span></h2><div className="intro-bottom"><p>My work began with hands-on creative execution and grew into marketing strategy and leadership. Today I connect positioning and campaign direction with the practical work of launching, measuring and improving them. My portfolio spans healthcare, fitness and brand development.</p><Link href="/about" className="text-link">MORE ABOUT MY APPROACH <ArrowUpRight size={19} aria-hidden="true" /></Link></div></div></section>
 
         <section className="work-section wrap" id="work">
           <div className="section-heading">
