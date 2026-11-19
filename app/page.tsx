@@ -65,10 +65,10 @@ export default function Home() {
 
         <section className="contact" id="contact" aria-labelledby="home-contact-heading">
           <div className="wrap contact-inner">
-            <div className="section-index light-index"><span className="index-dot"/> HAVE SOMETHING IN MIND?</div>
-            <h2 id="home-contact-heading">Let’s make<br/><em>it matter.</em><span className="contact-star" aria-hidden="true">✳</span></h2>
             <div className={landing.homeContact}>
-              <div>
+              <div className={landing.contactIntro}>
+                <div className="section-index light-index"><span className="index-dot"/> HAVE SOMETHING IN MIND?</div>
+                <h2 id="home-contact-heading">Let’s make<br/><em>it matter.</em></h2>
                 <p>I’m interested in marketing leadership roles in Qatar and across the GCC, as well as consulting and creative collaborations.</p>
                 <div className={landing.actions}>
                   {contactEmail && <a className="text-link" href={`mailto:${contactEmail}`}>EMAIL ME <MoveUpRight size={19} aria-hidden="true" /></a>}
