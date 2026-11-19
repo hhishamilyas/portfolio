@@ -1,0 +1,19 @@
+.career { padding-block: clamp(32px, 6vw, 72px); border-top: 1px solid var(--line); }
+.career h2 { margin: 0 0 24px; font: 800 clamp(2rem, 5vw, 3.8rem)/1.05 Manrope, sans-serif; letter-spacing: -.06em; }
+.timeline { margin: 0 0 24px; padding: 0; list-style: none; }
+.timeline li {
+  display: grid;
+  grid-template-columns: minmax(145px, 1fr) minmax(0, 3fr);
+  gap: 10px 30px;
+  padding: 22px 0;
+  border-top: 1px solid var(--line);
+}
+.timeline li:last-child { border-bottom: 1px solid var(--line); }
+.period { color: #a63824; font-size: .88rem; font-weight: 800; }
+.timeline h3 { margin: 0 0 4px; font: 800 clamp(1.15rem, 2.5vw, 1.65rem)/1.18 Manrope, sans-serif; }
+.company { font-weight: 700; }
+.timeline p { margin: 8px 0 0; max-width: 65ch; color: #53534d; line-height: 1.55; }
+.profile { display: inline-flex; white-space: normal; }
+@media (max-width: 600px) {
+  .timeline li { grid-template-columns: minmax(0, 1fr); }
+}
