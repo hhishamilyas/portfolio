@@ -1,14 +1,21 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { Plus } from 'lucide-react';
+import { ArrowUpRight, BriefcaseBusiness, Compass, Plus, Workflow } from 'lucide-react';
 import Landing from '../_components/Landing';
 import styles from '../_components/landing.module.css';
 import career from './career.module.css';
+import story from './story.module.css';
 
 export const metadata: Metadata = {
   title: 'About | Hisham Ilyas',
   description: 'Meet Hisham Ilyas, a marketing strategist and creative leader working across brand, performance, and marketing operations.',
 };
+
+const stories = [
+  { title: 'From creative to strategy', description: 'I started in hands-on creative execution before moving into marketing strategy and leadership. That experience shapes how I connect positioning and campaign direction with the work a team needs to deliver.', icon: Compass, href: '#career-path', action: 'Explore my career' },
+  { title: 'How I work', description: 'I start with the business problem, decide what the work needs to change, then use what we learn after launch to guide the next decision.', icon: Workflow, href: '/expertise', action: 'See my expertise' },
+  { title: 'Where I’ve worked', description: 'My portfolio spans healthcare acquisition, fitness positioning, and brand development. I’m open to marketing leadership roles in Qatar and across the GCC.', icon: BriefcaseBusiness, href: '/work', action: 'View selected work' },
+];
 
 const roles = [
   { title: 'Manager – Performance Marketing', company: 'Trixcorp', period: 'Mar 2026 onward', location: 'Dubai, United Arab Emirates' },
@@ -22,12 +29,17 @@ const roles = [
 export default function AboutPage() {
   return (
     <Landing label="ABOUT" title="About Hisham Ilyas" intro="I connect brand strategy and creative direction with the practical work of launching, measuring, and improving campaigns.">
-      <div className={styles.grid}>
-        <section className={styles.card}><h2>From creative to strategy</h2><p>I started in hands-on creative execution before moving into marketing strategy and leadership. That experience shapes how I connect positioning and campaign direction with the work a team needs to deliver.</p></section>
-        <section className={styles.card}><h2>How I work</h2><p>I start with the business problem, decide what the work needs to change, then use what we learn after launch to guide the next decision.</p></section>
-        <section className={styles.card}><h2>Where I’ve worked</h2><p>My portfolio spans healthcare acquisition, fitness positioning, and brand development. I’m open to marketing leadership roles in Qatar and across the GCC.</p></section>
+      <div className={story.grid}>
+        {stories.map(({ title, description, icon: Icon, href, action }) => (
+          <section className={story.card} key={title}>
+            <div className={story.icon}><Icon size={22} aria-hidden="true" /></div>
+            <h2>{title}</h2>
+            <p>{description}</p>
+            <Link className={story.link} href={href}>{action}<ArrowUpRight size={17} aria-hidden="true" /></Link>
+          </section>
+        ))}
       </div>
-      <section className={career.career} aria-labelledby="career-heading">
+      <section id="career-path" className={career.career} aria-labelledby="career-heading">
         <h2 id="career-heading">Career path</h2>
         <ol className={career.timeline} role="list">
           {roles.map((role, index) => (
