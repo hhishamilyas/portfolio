@@ -212,3 +212,18 @@
 }
 .page-home-link:hover { color: #a63824; }
 .page-home-link:focus-visible { outline: 2px solid #a63824; outline-offset: 5px; }
+
+@media (min-width: 761px) {
+  .site-header .brand { margin-right: 0; }
+  .site-header .header-contact {
+    margin-left: auto;
+    border: 0;
+    border-radius: 0;
+    padding-inline: 0;
+    min-height: 44px;
+    gap: 8px;
+    text-decoration: underline;
+    text-underline-offset: 5px;
+  }
+  .site-header .header-contact:hover { background: transparent; color: #a63824; }
+}
