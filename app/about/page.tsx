@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { Plus } from 'lucide-react';
 import Landing from '../_components/Landing';
 import styles from '../_components/landing.module.css';
 import career from './career.module.css';
@@ -10,7 +11,7 @@ export const metadata: Metadata = {
 };
 
 const roles = [
-  { title: 'Manager – Performance Marketing', company: 'Trixcorp', period: 'Mar 2026 onward' },
+  { title: 'Manager – Performance Marketing', company: 'Trixcorp', period: 'Mar 2026 onward', location: 'Dubai, United Arab Emirates' },
   { title: 'Digital Strategist', company: 'RAC', period: 'Jun 2025 – Mar 2026', description: 'Managed cross-channel digital strategy and paid campaigns across Meta, Google, and LinkedIn, and used audience and performance insights to refine brand messaging.' },
   { title: 'Head of Marketing', company: 'D Tricho', period: 'Mar 2025 – Jun 2025', description: 'Led content, paid acquisition, CRM, and brand positioning, including doctor-led content, WhatsApp funnels, and lead tracking.' },
   { title: 'Performance Marketing Lead & Creative Strategist', company: 'Teqnius Innovations Private Limited', period: 'Apr 2023 – Feb 2025', description: 'Led digital campaigns, creative testing, audience segmentation, and production across healthcare, FMCG, retail, and education.' },
@@ -29,14 +30,17 @@ export default function AboutPage() {
       <section className={career.career} aria-labelledby="career-heading">
         <h2 id="career-heading">Career path</h2>
         <ol className={career.timeline} role="list">
-          {roles.map(role => (
+          {roles.map((role, index) => (
             <li key={role.title}>
-              <span className={career.period}>{role.period}</span>
-              <div>
-                <h3>{role.title}</h3>
-                <span className={career.company}>{role.company}</span>
-                {role.description && <p>{role.description}</p>}
-              </div>
+              <details className={career.role} open={index === 0}>
+                <summary>
+                  <span className={career.period}>{role.period}</span>
+                  <span className={career.title}>{role.title}</span>
+                  <span className={career.company}>{role.company}</span>
+                  <span className={career.toggle} aria-hidden="true"><Plus size={18} /></span>
+                </summary>
+                <p>{role.description ?? role.location}</p>
+              </details>
             </li>
           ))}
         </ol>
