@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import './_components/motion/interactions.css';
+import MotionProvider from './_components/motion/MotionProvider';
 import SiteHeader from './_components/SiteHeader';
 
 const title = 'Hisham Ilyas | Marketing Strategist & Creative Leader';
@@ -12,5 +14,5 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="en"><body><SiteHeader />{children}</body></html>;
+  return <html lang="en"><body><SiteHeader /><MotionProvider>{children}</MotionProvider></body></html>;
 }

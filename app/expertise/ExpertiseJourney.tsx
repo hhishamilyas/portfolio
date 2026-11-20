@@ -1,11 +1,13 @@
 'use client';
 
-import { motion, useReducedMotion } from 'framer-motion';
+import { useReducedMotion } from 'motion/react';
+import * as m from 'motion/react-m';
 import { useEffect, useRef, useState } from 'react';
 import type { PointerEvent } from 'react';
 import { BarChart3, Compass, Layers3, MousePointer2, Palette } from 'lucide-react';
 import { services } from './services';
 import styles from './journey.module.css';
+import { motionTokens } from '../_components/motion/tokens';
 
 const [strategy, creative, growth, analytics, digital] = services;
 
@@ -134,15 +136,15 @@ export default function ExpertiseJourney() {
               const direction = index < active ? -1 : 1;
 
               return (
-                <motion.div
+                <m.div
                   className={styles.panel}
                   key={step.service.num}
                   aria-hidden={!current}
                   initial={false}
                   animate={current
                     ? { opacity: 1, y: 0, visibility: 'visible', zIndex: 1 }
-                    : { opacity: 0, y: reduceMotion ? 0 : direction * 20, zIndex: 0, transitionEnd: { visibility: 'hidden' } }}
-                  transition={{ duration: reduceMotion ? 0 : 0.34, ease: 'easeOut' }}
+                    : { opacity: 0, y: reduceMotion ? 0 : direction * motionTokens.rise, zIndex: 0, transitionEnd: { visibility: 'hidden' } }}
+                  transition={{ duration: reduceMotion ? 0 : motionTokens.duration.card, ease: motionTokens.ease }}
                 >
                   <div className={styles.deck} onPointerMove={moveCard} onPointerLeave={resetCard} onPointerCancel={resetCard}>
                     <article className={styles.card}>
@@ -158,7 +160,7 @@ export default function ExpertiseJourney() {
                       </dl>
                     </article>
                   </div>
-                </motion.div>
+                </m.div>
               );
             })}
           </div>

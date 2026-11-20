@@ -2,6 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
 import { projects } from '../projects';
+import Reveal from '../../_components/motion/Reveal';
 
 export default function ProjectGrid({ heading: Heading = 'h3' }: { heading?: 'h2' | 'h3' }) {
   const total = String(projects.length).padStart(2, '0');
@@ -9,7 +10,7 @@ export default function ProjectGrid({ heading: Heading = 'h3' }: { heading?: 'h2
   return (
     <div className="projects">
       {projects.map((project, index) => (
-        <article className="project" key={project.href}>
+        <Reveal as="article" className="project motion-project" key={project.href} staggerIndex={index}>
           <div className={`project-visual ${project.theme} project-photo`}>
             <span className="project-visual-top">{project.label}</span>
             <Image src={project.cover} alt="" fill sizes="(max-width: 760px) calc(100vw - 44px), 45vw" />
@@ -25,7 +26,7 @@ export default function ProjectGrid({ heading: Heading = 'h3' }: { heading?: 'h2
             </div>
             <span className="project-icon" aria-hidden="true"><ArrowUpRight size={23} /></span>
           </div>
-        </article>
+        </Reveal>
       ))}
     </div>
   );

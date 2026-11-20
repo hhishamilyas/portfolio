@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import hero from './home-hero.module.css';
 import EnquiryDraft from './connect/EnquiryDraft';
+import Reveal from './_components/motion/Reveal';
 import landing from './_components/landing.module.css';
 import { useEffect, useState } from 'react';
 import { services } from './expertise/services';
@@ -25,16 +26,32 @@ export default function Home() {
       <main>
         <section className={`wrap ${hero.hero}`} aria-labelledby="hero-heading">
           <div className={hero.content}>
-            <dl className={hero.highlights}>
+            <Reveal as="dl" className={hero.highlights} trigger="mount">
               <div><dt>Featured projects</dt><dd>{String(projects.length).padStart(2, '0')}</dd></div>
               <div><dt>Lower CPL at DTricho</dt><dd>40%</dd></div>
-            </dl>
+            </Reveal>
             <div className={hero.intro}>
-              <h1 id="hero-heading">Hello<span>.</span> <span className={hero.srOnly}>I’m Hisham Ilyas.</span></h1>
-              <p className={hero.name} aria-hidden="true">I’m Hisham Ilyas.</p>
-              <p className={hero.role}>Marketing strategist &amp; creative leader</p>
+              <h1 id="hero-heading">
+                <span className={hero.srOnly}>Hello. I’m Hisham Ilyas.</span>
+                <span className={hero.greeting} aria-hidden="true">
+                  {Array.from('Hello.').map((letter, index) => (
+                    <Reveal
+                      as="span"
+                      className={letter === '.' ? hero.greetingPeriod : hero.greetingLetter}
+                      key={index}
+                      trigger="mount"
+                      effect="hero-text"
+                      staggerIndex={index}
+                    >
+                      {letter}
+                    </Reveal>
+                  ))}
+                </span>
+              </h1>
+              <Reveal as="p" className={hero.name} aria-hidden={true} trigger="mount" effect="hero-text" staggerIndex={6}>I’m Hisham Ilyas.</Reveal>
+              <Reveal as="p" className={hero.role} trigger="mount" effect="hero-text" staggerIndex={7}>Marketing strategist &amp; creative leader</Reveal>
             </div>
-            <a className={hero.workLink} href="#work">Explore selected work <ArrowDown size={17} aria-hidden="true" /></a>
+            <a className={`${hero.workLink} motion-button`} href="#work">Explore selected work <ArrowDown size={17} aria-hidden="true" /></a>
           </div>
           <div className={hero.portrait}>
             <Image
@@ -50,23 +67,23 @@ export default function Home() {
         <section className="intro wrap" id="about"><div className="section-index"><span className="index-dot"/> 01 / WHO I AM</div><div className="intro-body"><h2>I connect the <span className="soft">big picture</span> with the <span className="underline-accent">small details.</span></h2><div className="intro-bottom"><p>My work began with hands-on creative execution and grew into marketing strategy and leadership. Today I connect positioning and campaign direction with the practical work of launching, measuring and improving them. My portfolio spans healthcare, fitness and brand development.</p><Link href="/about" className="text-link">MORE ABOUT MY APPROACH <ArrowUpRight size={19} aria-hidden="true" /></Link></div></div></section>
 
         <section className="work-section wrap" id="work">
-          <div className="section-heading">
+          <Reveal className="section-heading">
             <div><div className="section-index"><span className="index-dot"/> 02 / PORTFOLIO</div><h2>Selected <em>work.</em></h2></div>
             <p>Projects across brand strategy, creative direction, customer acquisition and operations.</p>
-          </div>
+          </Reveal>
           <ProjectGrid />
           <p className="project-note">Project images are illustrative.</p>
-          <Link className="text-link" href="/work" style={{ display: 'inline-flex' }}>VIEW ALL WORK <ArrowUpRight size={19} aria-hidden="true" /></Link>
+          <Link className="text-link motion-button" href="/work" style={{ display: 'inline-flex' }}>VIEW ALL WORK <ArrowUpRight size={19} aria-hidden="true" /></Link>
         </section>
 
-        <section className="expertise-section" id="expertise"><div className="wrap expertise-inner"><div className="expertise-head"><div className="section-index light-index"><span className="index-dot"/> 03 / WHAT I DO</div><h2>My toolkit is <em>connected.</em></h2><p>I work across five disciplines, from defining the brief to reviewing what the work achieved.</p></div><div className="service-list">{services.map((service, i) => <div className={`service-row ${openService === i ? 'service-active' : ''}`} key={service.num}><button aria-expanded={openService === i} onClick={() => setOpenService(openService === i ? null : i)}><span className="service-num">{service.num}</span><span className="service-title">{service.name}</span><span className="service-toggle">{openService === i ? <X size={20}/> : <Plus size={20}/>}</span></button>{openService === i && <p className="service-desc">{service.desc}</p>}</div>)}</div></div></section>
+        <section className="expertise-section" id="expertise"><div className="wrap expertise-inner"><Reveal className="expertise-head"><div className="section-index light-index"><span className="index-dot"/> 03 / WHAT I DO</div><h2>My toolkit is <em>connected.</em></h2><p>I work across five disciplines, from defining the brief to reviewing what the work achieved.</p></Reveal><Reveal className="service-list" staggerIndex={1}>{services.map((service, i) => <div className={`service-row ${openService === i ? 'service-active' : ''}`} key={service.num}><button aria-expanded={openService === i} onClick={() => setOpenService(openService === i ? null : i)}><span className="service-num">{service.num}</span><span className="service-title">{service.name}</span><span className="service-toggle">{openService === i ? <X size={20}/> : <Plus size={20}/>}</span></button>{openService === i && <Reveal as="p" className="service-desc" trigger="mount" effect="fade">{service.desc}</Reveal>}</div>)}</Reveal></div></section>
 
         <section className="statement wrap"><span className="section-index"><span className="index-dot"/> 04 / HOW I WORK</span><p>Start with the business problem. Build the work around it. <em>Measure what changes.</em></p><div className="statement-sign">— HISHAM / THINK → BUILD → MEASURE</div></section>
 
         <section className="contact" id="contact" aria-labelledby="home-contact-heading">
           <div className="wrap contact-inner">
             <div className={landing.homeContact}>
-              <div className={landing.contactIntro}>
+              <Reveal className={landing.contactIntro}>
                 <div className="section-index light-index"><span className="index-dot"/> HAVE SOMETHING IN MIND?</div>
                 <h2 id="home-contact-heading">Let’s make<br/><em>it matter.</em></h2>
                 <p>I’m interested in marketing leadership roles in Qatar and across the GCC, as well as consulting and creative collaborations.</p>
@@ -75,8 +92,8 @@ export default function Home() {
                   {linkedinUrl && <a className="text-link" href={linkedinUrl}>LINKEDIN <ArrowUpRight size={19} aria-hidden="true" /></a>}
                   {cvUrl && <a className="text-link" href={cvUrl} download>DOWNLOAD CV <ArrowDownRight size={19} aria-hidden="true" /></a>}
                 </div>
-              </div>
-              <EnquiryDraft email={contactEmail} />
+              </Reveal>
+              <Reveal staggerIndex={1} effect="fade"><EnquiryDraft email={contactEmail} /></Reveal>
             </div>
           </div>
         </section>
