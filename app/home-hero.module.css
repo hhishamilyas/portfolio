@@ -33,11 +33,6 @@
 .portrait { position: relative; min-width: 0; }
 .portrait img { object-fit: contain; object-position: center bottom; }
 
-@media (prefers-reduced-motion: no-preference) {
-  .intro, .portrait { animation: portrait-enter .65s ease-out both; }
-  @keyframes portrait-enter { from { transform: translateY(14px); } to { transform: translateY(0); } }
-}
-
 @media (max-width: 740px) {
   .hero { grid-template-columns: minmax(0, 1fr); gap: 0; min-height: 0; }
   .content { padding-block: 33px 10px; gap: 27px; }
