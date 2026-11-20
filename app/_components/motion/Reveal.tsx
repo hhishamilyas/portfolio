@@ -25,7 +25,7 @@ type RevealProps = {
   id?: string;
   'aria-hidden'?: boolean;
   trigger?: 'mount' | 'view';
-  effect?: 'fade' | 'rise';
+  effect?: 'fade' | 'rise' | 'hero-text';
   staggerIndex?: number;
 };
 
@@ -39,11 +39,19 @@ export default function Reveal({
 }: RevealProps) {
   const reduceMotion = useReducedMotion();
   const Element = elements[as];
+  const isHeroText = effect === 'hero-text';
+  const timing = isHeroText ? motionTokens.heroText : motionTokens;
+  const opacity = isHeroText ? motionTokens.heroText.opacity : 0.86;
+  const duration = isHeroText
+    ? motionTokens.heroText.duration
+    : trigger === 'view'
+      ? motionTokens.duration.reveal
+      : effect === 'fade' ? motionTokens.duration.page : motionTokens.duration.entrance;
   const target = reduceMotion
     ? undefined
     : effect === 'fade'
-      ? { opacity: [0.86, 1] }
-      : { opacity: [0.86, 1], y: [motionTokens.rise, 0] };
+      ? { opacity: [opacity, 1] }
+      : { opacity: [opacity, 1], y: [timing.rise, 0] };
 
   return (
     <Element
@@ -54,8 +62,8 @@ export default function Reveal({
       viewport={{ once: true, amount: 'some' }}
       transition={{
         ease: motionTokens.ease,
-        duration: trigger === 'view' ? motionTokens.duration.reveal : effect === 'fade' ? motionTokens.duration.page : motionTokens.duration.entrance,
-        delay: Math.min(Math.max(staggerIndex, 0) * motionTokens.stagger, motionTokens.maxStaggerDelay),
+        duration,
+        delay: Math.min(Math.max(staggerIndex, 0) * timing.stagger, timing.maxStaggerDelay),
       }}
     >
       {children}

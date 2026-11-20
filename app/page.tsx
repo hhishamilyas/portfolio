@@ -40,6 +40,7 @@ export default function Home() {
                       className={letter === '.' ? hero.greetingPeriod : hero.greetingLetter}
                       key={index}
                       trigger="mount"
+                      effect="hero-text"
                       staggerIndex={index}
                     >
                       {letter}
@@ -47,8 +48,8 @@ export default function Home() {
                   ))}
                 </span>
               </h1>
-              <Reveal as="p" className={hero.name} aria-hidden={true} trigger="mount" staggerIndex={6}>I’m Hisham Ilyas.</Reveal>
-              <Reveal as="p" className={hero.role} trigger="mount" staggerIndex={7}>Marketing strategist &amp; creative leader</Reveal>
+              <Reveal as="p" className={hero.name} aria-hidden={true} trigger="mount" effect="hero-text" staggerIndex={6}>I’m Hisham Ilyas.</Reveal>
+              <Reveal as="p" className={hero.role} trigger="mount" effect="hero-text" staggerIndex={7}>Marketing strategist &amp; creative leader</Reveal>
             </div>
             <a className={`${hero.workLink} motion-button`} href="#work">Explore selected work <ArrowDown size={17} aria-hidden="true" /></a>
           </div>
