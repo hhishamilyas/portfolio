@@ -53,7 +53,7 @@ export default function Home() {
             </div>
             <a className={`${hero.workLink} motion-button`} href="#work">Explore selected work <ArrowDown size={17} aria-hidden="true" /></a>
           </div>
-          <Reveal className={hero.portrait} trigger="mount" effect="fade" staggerIndex={1}>
+          <div className={hero.portrait}>
             <Image
               src="/images/hisham-portrait.webp"
               alt="Black-and-white portrait of Hisham Ilyas"
@@ -61,7 +61,7 @@ export default function Home() {
               sizes="(max-width: 740px) calc(100vw - 44px), (max-width: 1440px) 48vw, 685px"
               priority
             />
-          </Reveal>
+          </div>
         </section>
 
         <section className="intro wrap" id="about"><div className="section-index"><span className="index-dot"/> 01 / WHO I AM</div><div className="intro-body"><h2>I connect the <span className="soft">big picture</span> with the <span className="underline-accent">small details.</span></h2><div className="intro-bottom"><p>My work began with hands-on creative execution and grew into marketing strategy and leadership. Today I connect positioning and campaign direction with the practical work of launching, measuring and improving them. My portfolio spans healthcare, fitness and brand development.</p><Link href="/about" className="text-link">MORE ABOUT MY APPROACH <ArrowUpRight size={19} aria-hidden="true" /></Link></div></div></section>

@@ -4,5 +4,5 @@ export const motionTokens = {
   rise: 14,
   stagger: 0.09,
   maxStaggerDelay: 0.63,
-  heroText: { duration: 0.86, rise: 22, stagger: 0.14, maxStaggerDelay: 0.98, opacity: 0.65 },
+  heroText: { duration: 0.9, rise: 22, stagger: 0.3, maxStaggerDelay: 2.1, opacity: 0.65 },
 };
