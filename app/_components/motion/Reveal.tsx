@@ -55,7 +55,7 @@ export default function Reveal({
       transition={{
         ease: motionTokens.ease,
         duration: trigger === 'view' ? motionTokens.duration.reveal : effect === 'fade' ? motionTokens.duration.page : motionTokens.duration.entrance,
-        delay: Math.min(Math.max(staggerIndex, 0), 4) * motionTokens.stagger,
+        delay: Math.min(Math.max(staggerIndex, 0) * motionTokens.stagger, motionTokens.maxStaggerDelay),
       }}
     >
       {children}

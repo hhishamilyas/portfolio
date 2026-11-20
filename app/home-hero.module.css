@@ -22,7 +22,9 @@
 .highlights dd { margin: 0; font: 500 clamp(1.8rem, 3.2vw, 3rem)/1 Manrope, sans-serif; letter-spacing: -.055em; }
 
 .intro h1 { margin: 0; font: 500 clamp(5rem, 13vw, 12rem)/.87 Manrope, sans-serif; letter-spacing: -.09em; }
-.intro h1 > span:first-child { color: #a63824; }
+.greeting { white-space: nowrap; }
+.greetingLetter, .greetingPeriod { display: inline-block; }
+.greetingPeriod { color: #a63824; }
 .name { font-size: clamp(1.2rem, 2.2vw, 1.85rem); font-weight: 700; margin: 24px 0 5px; }
 .role { font-size: clamp(.95rem, 1.55vw, 1.1rem); margin: 0; }
 .srOnly { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
