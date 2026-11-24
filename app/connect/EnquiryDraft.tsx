@@ -41,7 +41,7 @@ export default function EnquiryDraft({ email }: { email?: string }) {
       </div>
       <label>Topic<select name="topic"><option>Marketing leadership role</option><option>Consulting project</option><option>Creative collaboration</option><option>Other enquiry</option></select></label>
       <label>Message<textarea name="message" rows={6} maxLength={1200} required /></label>
-      <button type="submit">{email ? 'Open email draft' : 'Copy enquiry'}</button>
+      <button type="submit" className="motion-button">{email ? 'Open email draft' : 'Copy enquiry'}</button>
       {feedback && <p role="status">{feedback}</p>}
     </form>
   );

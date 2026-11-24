@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import BackHome from './BackHome';
+import Reveal from './motion/Reveal';
 import styles from './landing.module.css';
 
 export default function Landing({ label, title, intro, children }: {
@@ -11,11 +12,11 @@ export default function Landing({ label, title, intro, children }: {
   return (
     <main className={`wrap ${styles.page}`}>
       <BackHome />
-      <header className={styles.hero}>
+      <Reveal as="header" className={styles.hero} trigger="mount" effect="fade">
         <p className="section-index"><span className="index-dot" /> {label}</p>
         <h1>{title}</h1>
         <p className={styles.intro}>{intro}</p>
-      </header>
+      </Reveal>
       {children}
     </main>
   );
